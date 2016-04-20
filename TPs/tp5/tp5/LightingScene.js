@@ -105,7 +105,7 @@ LightingScene.prototype.init = function(application) {
 	this.cilindro= new MyCylinder(this,8,3);
 	this.lamp = new MyLamp( this, 8, 20);
 	this.clock = new MyClock(this);
-	this.lastUpdateTime = 'undefined';
+	this.airPlane = new MyAirPlane(this, 12, 3.5);
 
 	this.setUpdatePeriod(100);
 };
@@ -139,10 +139,10 @@ LightingScene.prototype.initLights = function() {
 	this.lights[3].setLinearAttenuation(0);
 	this.lights[3].setQuadraticAttenuation(1);
 	this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-	this.lights[3].setSpecular(1,1,0,1);
+	this.lights[3].setSpecular(1,1,1,1);
 
 	this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-	this.lights[0].setSpecular(1,1,0,1);
+	this.lights[0].setSpecular(1,1,1,1);
 	this.lights[0].enable();
 
 	this.lights[1].setAmbient(0, 0, 0, 1);
@@ -152,7 +152,7 @@ LightingScene.prototype.initLights = function() {
 	this.lights[4].setPosition(1, 5, 7.5, 1.0);
 	this.lights[4].setVisible(true); // show marker on light position (different from enabled)
 	//this.lights[4].setSpecular(1,1,1,1);
-	this.lights[4].setDiffuse(1, 1, 0, 1.0);
+	this.lights[4].setDiffuse(1, 1, 1, 1.0);
 	this.lights[4].setConstantAttenuation(0);
 	this.lights[4].setLinearAttenuation(1);
 	this.lights[4].setQuadraticAttenuation(0);
@@ -260,30 +260,36 @@ LightingScene.prototype.display = function() {
 		this.materialBoardRight.apply();
 		this.boardB.display();
 	this.popMatrix();
+
 	this.materialDefault.apply();
 	
-	//Clock
+	// Lamp
 	this.pushMatrix();
-		this.translate(7.5, 7.5, 0.2);
-		this.scale(0.8, 0.8,0.2);
-		this.clock.display();
-	this.popMatrix();
-
-	this.pushMatrix();
+		
 		this.translate(6, 10, 6);
 		this.rotate(Math.PI/2,1,0,0);
 		this.lamp.display();
 	this.popMatrix();
+/*	this.pushMatrix();
+		this.rotate(-90 * degToRad,1,0,  0);
+		this.scale(1,1, 0.1);
+		this.translate(2,-2,0);
+		this.materialE.apply();
+		this.cilindro.display();
+	this.popMatrix();*/
 	
 	this.materialDefault.apply();
 
+	// 	Prism
 	this.pushMatrix();
 		this.translate(3,0,3);
 		this.rotate(-Math.PI/2,1,0,0);
 		this.materialPrisma.apply();
+		//this.materialE.apply();
 		this.prisma.display();
 	this.popMatrix();
 
+	// Cylinder
 	this.pushMatrix();
 		this.translate(0,0,14);
 		this.scale(1,3,1);
@@ -294,9 +300,36 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	this.materialDefault.apply();
+	
+	this.pushMatrix();
+		this.scale(1,1,0.4);
+		this.translate(7,8,0.4);
+		this.clock.display();
+	this.popMatrix();
+
+	this.materialDefault.apply();
+
+	//Plane
+	this.pushMatrix();
+		this.translate(this.airPlane.x, this.airPlane.y, 8);
+		if(this.airPlane.isFlyingVertical){
+			this.rotate(Math.PI/2, 0, 0, 1);
+			this.rotate(Math.PI, 1, 0, 0);
+		}
+	
+		this.scale(1, 0.3, 1);
+		this.rotate(Math.PI, 0, 1 ,0);
+		this.translate(-1.5,0,0);
+		this.airPlane.display();
+	this.popMatrix();
+
+	this.materialDefault.apply();
+
+
 	// ---- END Primitive drawing section
 };
 
 LightingScene.prototype.update = function(currTime) {
 	this.clock.update(currTime);
-};
+	this.airPlane.update(currTime);
+}

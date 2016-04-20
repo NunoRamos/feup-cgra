@@ -1,14 +1,13 @@
 /**
- * MyPolygon
+ * MyObject
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-
-function MyPolygon(scene, sides) {
+function MyPolygon(scene, slices) {
 	CGFobject.call(this,scene);
 
-	this.sides = sides;
-
+	this.slices = slices;
+	
 	this.initBuffers();
 };
 
@@ -17,31 +16,29 @@ MyPolygon.prototype.constructor=MyPolygon;
 
 MyPolygon.prototype.initBuffers = function () {
 	this.vertices = [];
-	this.indices = [];
 	this.normals = [];
-	this.texCoords = [];
+ 	this.indices = [];
+ 	this.texCoords = [];
 
-	for(var i = 0; i < this.sides; i++) {
-		this.vertices.push(Math.cos(2*i*Math.PI/this.sides), Math.sin(2*i*Math.PI/this.sides), 0);
-	}
+ 	var ang=(2*Math.PI)/this.slices;
 
-	this.vertices.push(0, 0, 0);
+	this.vertices.push(0,0,0);
+	this.texCoords.push(0.5,0.5);
+	this.normals.push(0,0,1);
 
-	for(var i = 0; i < this.sides - 1; i++) {
-		this.indices.push(i, i + 1, this.sides);
-	}
+ 	for(var i = 0; i < this.slices ; i++){
+ 		this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), 0 );
+ 		this.normals.push(0,0,1);
+ 		this.texCoords.push(0.5 + Math.cos(ang*i)/2, 0.5 - Math.sin(ang*i)/2);
+ 	}
 
-	this.indices.push(this.sides - 1, 0, this.sides);
+ 	for(var i = 0; i < this.slices-1 ; i++){
+ 		this.indices.push(i+1, i+2,0);
+ 	}
 
-	for(var i = 0; i <= this.sides; i++) {
-		this.normals.push(0, 0, 1);
-	}
-
-	for(var i = 0; i < this.sides; i++) {
-		this.texCoords.push(0.5 + Math.cos(2*i*Math.PI/this.sides)/2, 0.5 - Math.sin(2*i*Math.PI/this.sides)/2);
-	}
-	this.texCoords.push(0.5, 0.5);
+	this.indices.push(this.slices, 1, 0);
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
+

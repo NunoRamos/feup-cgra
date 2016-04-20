@@ -1,59 +1,73 @@
 /**
- * MyClock
+ * MyObject
+ * @param gl {WebGLRenderingContext}
  * @constructor
  */
- function MyClock(scene) {
- 	CGFobject.call(this,scene);
-	
-	this.lastUpdateTime = (new Date()).getTime();
+function MyClock(scene) {
+	CGFobject.call(this,scene);
 
-	this.defaultAppearance = new CGFappearance(this.scene);
+	this.timeSinceUpdate = (new Date()).getTime();
+	this.timeToSetAngle = 0;
 
-	this.clockFaceMaterial = new CGFappearance(this.scene);
-	this.clockFaceMaterial.loadTexture("../resources/images/clock.png");
-	
-	this.blackPointerAppearance = new CGFappearance(this.scene);
-	this.blackPointerAppearance.setDiffuse(0, 0, 0, 1);
-	this.blackPointerAppearance.setSpecular(0, 0, 0, 1);
+	this.cylinder = new MyCylinder(this.scene, 12, 1);
+	this.clockFace = new MyPolygon(this.scene, 12);
+	this.hours = new MyClockHand(this.scene, 0.025, 0.5);
+	this.minutes = new MyClockHand(this.scene, 0.025, 0.6);
+	this.seconds = new MyClockHand(this.scene, 0.0125, 0.8);
 
-	this.yellowPointerAppearance = new CGFappearance(this.scene);
-	this.yellowPointerAppearance.setDiffuse(1, 1, 0.2, 1);
-	this.yellowPointerAppearance.setSpecular(1, 1, 0.2, 1);
+	this.hours.setAngle(Math.PI/2);
+	this.minutes.setAngle(Math.PI);
+	this.seconds.setAngle(3*Math.PI/2);
 
-	this.scene = scene;
- 	this.clockBody = new MyCylinder(scene, 12, 1);
- 	this.clockFace = new MyPolygon(scene, 12);
- 	this.hourPointer = new MyClockHand(scene, .05, 1);
- 	this.minutePointer = new MyClockHand(scene, .05, 1.5);
- 	this.secondPointer = new MyClockHand(scene, 0.025, 1.5);
+	this.materialBlackPointer = new CGFappearance(this.scene);
+	this.materialBlackPointer.setSpecular(0,0,0,1);
+	this.materialBlackPointer.setShininess(1);
+	this.materialBlackPointer.setDiffuse(0,0,0,1);
 
-	this.hourPointer.setAngle(90);
-	this.minutePointer.setAngle(180);
-	this.secondPointer.setAngle(270);
- };
+	this.materialYellowPointer = new CGFappearance(this.scene);
+	this.materialYellowPointer.setSpecular(1,1,0,1);
+	this.materialYellowPointer.setShininess(1);
+	this.materialYellowPointer.setDiffuse(1,1,0,1);
 
- MyClock.prototype = Object.create(CGFobject.prototype);
- MyClock.prototype.constructor = MyClock;
+	this.materialClockFace = new CGFappearance(this.scene);
+	this.materialClockFace.setSpecular(1,1,1,1);
+	this.materialClockFace.setShininess(1);
+	this.materialClockFace.setDiffuse(1,1,1,1);
+	this.materialClockFace.loadTexture("../resources/images/clock.png");
+};
 
- MyClock.prototype.display = function() {
-	this.clockBody.display();
-	
-	this.clockFaceMaterial.apply();
-	this.clockFace.display();
+MyClock.prototype = Object.create(CGFobject.prototype);
+MyClock.prototype.constructor=MyClock;
+
+MyClock.prototype.display = function() {
+	this.cylinder.display();
+	this.hours.display();
+	this.minutes.display();
+	this.seconds.display();
 
 	this.scene.pushMatrix();
-		this.blackPointerAppearance.apply();
-		this.hourPointer.display();
-		this.blackPointerAppearance.apply();
-		this.minutePointer.display();
-		this.yellowPointerAppearance.apply();
-		this.secondPointer.display();
+		this.materialYellowPointer.apply();
+		this.hours.display();
+		this.materialBlackPointer.apply();
+		this.minutes.display();
+		this.seconds.display();
+		this.materialClockFace.apply();
+		this.clockFace.display();
 	this.scene.popMatrix();
- };
 
- MyClock.prototype.update = function(currTime) {
- 	deltaTimeSeconds = (currTime - this.lastUpdateTime)/1000;
-	this.secondPointer.setAngle(this.secondPointer.getAngle() - 6*deltaTimeSeconds);
-	this.minutePointer.setAngle(this.minutePointer.getAngle() - deltaTimeSeconds/10);
-	this.hourPointer.setAngle(this.hourPointer.getAngle() - deltaTimeSeconds/600);
- };
+}
+
+MyClock.prototype.update = function(currTime) {
+	
+	this.timeToSetAngle = (currTime - this.timeSinceUpdate) + this.timeToSetAngle;
+	this.timeSinceUpdate = currTime;
+
+	//console.log(this.timeToSetAngle);
+	
+	if(this.timeToSetAngle >= 1000){
+		this.timeToSetAngle -= 1000;
+		this.hours.setAngle(this.hours.getAngle() - (((2*Math.PI)/60)/60)/60);
+		this.minutes.setAngle(this.minutes.getAngle() - ((2*Math.PI)/60)/60);
+		this.seconds.setAngle(this.seconds.getAngle() - (2*Math.PI)/60);
+	}
+}
