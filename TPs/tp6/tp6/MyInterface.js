@@ -67,7 +67,24 @@ MyInterface.prototype.processKeyboard = function(event) {
 	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
 	switch (event.keyCode)
 	{
-		case (65):	// only works for capital 'A', as it is
-			console.log("Key 'A' pressed");
+		case (97):	// 'A'
+			console.log("A");
+			this.scene.drone.turnLeft();
+			break;
+		case (100): // 'D'
+			this.scene.drone.turnRight();
+			break;
+		case (119): // 'W'
+			this.scene.drone.moveForward();
+			break;
+		case (115): // 'S'
+			this.scene.drone.moveBackward();
+			break;
+		case (105): // 'I'
+			this.scene.drone.moveUp();
+			break;
+		case (106): // 'J'
+			this.scene.drone.moveDown();
+			break;
 	};
 };
