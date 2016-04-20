@@ -17,6 +17,7 @@ serialInclude([
 	'MyPolygon.js',
 	'MyAirPlane.js',
 	'MyInterface.js',
+	'MyDrone.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);
