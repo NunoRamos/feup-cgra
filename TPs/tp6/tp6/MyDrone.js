@@ -16,13 +16,73 @@
 	this.z = 7;
 	this.angle = Math.PI;
 
- 	this.initBuffers();
+	this.arms_1= new MyCylinder(this.scene,20,3);
+	this.arms_2= new MyCylinder(this.scene,20,3);
+
+	this.arms_cylinder_1 =	new MyCylinder(this.scene,20,1);
+	this.arms_cylinder_2 =	new MyCylinder(this.scene,20,1);
+	this.arms_cylinder_3 =	new MyCylinder(this.scene,20,1);
+	this.arms_cylinder_4 =	new MyCylinder(this.scene,20,1);
+
+	this.droneBody = new MyLamp(this.scene, 80, 200);
+
+ 	//this.initBuffers();
  };
 
  MyDrone.prototype = Object.create(CGFobject.prototype);
  MyDrone.prototype.constructor = MyDrone;
 
- MyDrone.prototype.initBuffers = function() {
+ MyDrone.prototype.display = function(){
+ 	this.scene.pushMatrix();
+ 		this.scene.translate(0, 0, -3);
+ 		this.scene.scale(0.2, 0.2, 2);
+ 		this.arms_1.display();
+ 	this.scene.popMatrix();
+
+ 	this.scene.pushMatrix();
+ 		this.scene.rotate(Math.PI/2, 0, 1, 0);
+ 		this.scene.translate(0, 0, -3);
+ 		this.scene.scale(0.2, 0.2, 2);
+ 		this.arms_2.display();
+ 	this.scene.popMatrix();
+
+ 	this.scene.pushMatrix();
+ 	 	this.scene.translate(0, 0, 3);
+ 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
+ 		this.scene.scale(0.5, 0.5, 1);
+ 		this.arms_cylinder_1.display();
+ 	this.scene.popMatrix();
+
+ 	 this.scene.pushMatrix();
+ 	 	this.scene.translate(0, 0, -3);
+ 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
+ 		this.scene.scale(0.5, 0.5, 1);
+ 		this.arms_cylinder_2.display();
+ 	this.scene.popMatrix();
+
+ 	this.scene.pushMatrix();
+ 	 	this.scene.translate(3, 0, 0);
+ 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
+ 		this.scene.scale(0.5, 0.5, 1);
+ 		this.arms_cylinder_3.display();
+ 	this.scene.popMatrix();
+
+ 	this.scene.pushMatrix();
+ 	 	this.scene.translate(-3, 0, 0);
+ 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
+ 		this.scene.scale(0.5, 0.5, 1);
+ 		this.arms_cylinder_4.display();
+ 	this.scene.popMatrix();
+
+
+ 	this.scene.pushMatrix();
+ 		this.scene.rotate(-Math.PI/2, 1, 0 , 0);
+ 		this.droneBody.display();
+ 	this.scene.popMatrix();
+ 	
+ }
+
+/* MyDrone.prototype.initBuffers = function() {
 	this.vertices = [ 0.5, 0.3, 0,
 					-0.5, 0.3, 0,
 					0, 0.3, 2 ];
@@ -35,7 +95,7 @@
 	
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
- };
+ };*/
 
  MyDrone.prototype.print = function() {
 	this.scene.translate(this.x, this.y, this.z);
