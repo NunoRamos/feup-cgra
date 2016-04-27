@@ -7,6 +7,8 @@
 	
 	this.scene = scene;
 
+	this.droneRightLeg = new MyDroneLeg(scene);
+
 	this.attrition = 0.2;
 	this.velX = 0;
 	this.velY = 0;
