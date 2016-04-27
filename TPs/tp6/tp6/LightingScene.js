@@ -110,8 +110,12 @@ LightingScene.prototype.init = function(application) {
 	this.airPlane = new MyAirPlane(this, 12, 3.5);
 	this.drone = new MyDrone(this);
 
-	this.option1 = true;
-	this.option2 = false;
+	this.light0 = true;
+	this.light1 = true;
+	this.light2 = true;
+	this.light3 = true;
+	this.light4 = true;
+	this.clockAnimated = true;
 	this.speed = 3;
 	
 	this.setUpdatePeriod(100);
@@ -174,6 +178,31 @@ LightingScene.prototype.updateLights = function() {
 
 
 LightingScene.prototype.display = function() {
+	if(this.light0)
+		this.lights[0].enable();
+	else
+		this.lights[0].disable();
+
+	if(this.light1)
+		this.lights[1].enable();
+	else
+		this.lights[1].disable();
+		
+	if(this.light2)
+		this.lights[2].enable();
+	else
+		this.lights[2].disable();
+		
+	if(this.light3)
+		this.lights[3].enable();
+	else
+		this.lights[3].disable();
+		
+	if(this.light4)
+		this.lights[4].enable();
+	else
+		this.lights[4].disable();
+		
 	// ---- BEGIN Background, camera and axis setup
 
 	// Clear image and depth buffer everytime we update the scene
@@ -338,18 +367,18 @@ LightingScene.prototype.display = function() {
 
 	this.materialDefault.apply();
 
-
 	// ---- END Primitive drawing section
 };
 
 LightingScene.prototype.update = function(currTime) {
 	deltaTime = (currTime - this.lastUpdateTime)/1000;
 	this.lastUpdateTime = currTime;
-	this.clock.update(currTime);
+	if(this.clockAnimated)
+		this.clock.update(deltaTime);
 	this.airPlane.update(currTime);
 	this.drone.update(deltaTime);
 };
 
-LightingScene.prototype.doSomething = function () { 
-	console.log("Doing something...");
+LightingScene.prototype.clockAnimation = function () { 
+	this.clockAnimated = !this.clockAnimated;
 };

@@ -6,9 +6,6 @@
 function MyClock(scene) {
 	CGFobject.call(this,scene);
 
-	this.timeSinceUpdate = (new Date()).getTime();
-	this.timeToSetAngle = 0;
-
 	this.cylinder = new MyCylinder(this.scene, 12, 1);
 	this.clockFace = new MyPolygon(this.scene, 12);
 	this.hours = new MyClockHand(this.scene, 0.025, 0.5);
@@ -57,17 +54,8 @@ MyClock.prototype.display = function() {
 
 }
 
-MyClock.prototype.update = function(currTime) {
-	
-	this.timeToSetAngle = (currTime - this.timeSinceUpdate) + this.timeToSetAngle;
-	this.timeSinceUpdate = currTime;
-
-	//console.log(this.timeToSetAngle);
-	
-	if(this.timeToSetAngle >= 1000){
-		this.timeToSetAngle -= 1000;
-		this.hours.setAngle(this.hours.getAngle() - (((2*Math.PI)/60)/60)/60);
-		this.minutes.setAngle(this.minutes.getAngle() - ((2*Math.PI)/60)/60);
-		this.seconds.setAngle(this.seconds.getAngle() - (2*Math.PI)/60);
-	}
+MyClock.prototype.update = function(deltaTime) {
+	this.hours.setAngle(this.hours.getAngle() - (((2*Math.PI)/60)/60)/60);
+	this.minutes.setAngle(this.minutes.getAngle() - ((2*Math.PI)/60)/60);
+	this.seconds.setAngle(this.seconds.getAngle() - (2*Math.PI)/60);
 }
