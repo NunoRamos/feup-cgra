@@ -8,6 +8,7 @@
 	this.scene = scene;
 
 	this.droneRightLeg = new MyDroneLeg(scene);
+	this.droneLeftLeg = new MyDroneLeg(scene);
 
 	this.attrition = 0.2;
 	this.velX = 0;
@@ -42,6 +43,16 @@
  MyDrone.prototype.print = function() {
 	this.scene.translate(this.x, this.y, this.z);
 	this.scene.rotate(this.angle, 0, 1, 0);
+	
+	this.scene.pushMatrix();
+		this.scene.translate(0.3, 0.1, 0);
+		this.droneRightLeg.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.translate(-0.3, 0.1, 0);
+		this.droneRightLeg.display();
+	this.scene.popMatrix();
  };
 
  MyDrone.prototype.turnLeft = function() {
