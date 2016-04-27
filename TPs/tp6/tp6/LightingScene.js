@@ -28,6 +28,8 @@ LightingScene.prototype.init = function(application) {
 	this.gl.enable(this.gl.CULL_FACE);
 	this.gl.depthFunc(this.gl.LEQUAL);
 
+	this.lastUpdateTime = (new Date()).getTime();
+
 	this.axis = new CGFaxis(this);
 
 	// Scene elements
@@ -341,8 +343,11 @@ LightingScene.prototype.display = function() {
 };
 
 LightingScene.prototype.update = function(currTime) {
+	deltaTime = (currTime - this.lastUpdateTime)/1000;
+	this.lastUpdateTime = currTime;
 	this.clock.update(currTime);
 	this.airPlane.update(currTime);
+	this.drone.update(deltaTime);
 };
 
 LightingScene.prototype.doSomething = function () { 

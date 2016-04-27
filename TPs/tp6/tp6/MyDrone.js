@@ -7,8 +7,7 @@
 	
 	this.scene = scene;
 
-	this.attrition = 0.1;
-
+	this.attrition = 0.2;
 	this.velX = 0;
 	this.velY = 0;
 	this.velZ = 0;
@@ -39,20 +38,8 @@
  };
 
  MyDrone.prototype.print = function() {
- 		if(this.velX > 0)
- 			this.velX -= this.attrition;
- 		else if(this.velX < 0) 
- 			this.velX += this.attrition;	
-
- 		if(this.velZ > 0)
- 			this.velZ -= this.attrition;
- 		else if(this.velZ < 0) 
- 			this.velZ += this.attrition;	
- 			
- 		this.x += this.velX;
-		this.y += this.velZ;
-		this.scene.translate(this.x, this.y, this.z);
-		this.scene.rotate(this.angle, 0, 1, 0);1
+	this.scene.translate(this.x, this.y, this.z);
+	this.scene.rotate(this.angle, 0, 1, 0);
  };
 
  MyDrone.prototype.turnLeft = function() {
@@ -70,8 +57,8 @@
  };
 
  MyDrone.prototype.moveBackward = function() {
- 	this.velX += Math.sin(this.angle);
-	this.velZ += Math.cos(this.angle);
+ 	this.velX -= Math.sin(this.angle);
+	this.velZ -= Math.cos(this.angle);
  };
 
  MyDrone.prototype.moveUp = function() {
@@ -80,4 +67,12 @@
 
  MyDrone.prototype.moveDown = function() {
 	this.y -= 0.1;
+ };
+
+ MyDrone.prototype.update = function(deltaTime) {
+	this.x += this.velX*deltaTime;
+	this.z += this.velZ*deltaTime;
+
+	this.velX *= (1-this.attrition);
+	this.velZ *= (1-this.attrition);
  };
