@@ -29,9 +29,7 @@
 	for(i = 0; i <= this.stacks; i++) {
 		for(j = 0; j < this.slices; j++) {
 			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),i);
-			//this.vertices.push(Math.cos(ang*(j+1)),Math.sin(ang*(j+1)),i);
 			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
-			//this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
 			this.texCoords.push(xCoord, yCoord);
 			xCoord += patchLengthx;
 		}

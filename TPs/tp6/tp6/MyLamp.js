@@ -25,9 +25,7 @@
 	for(i = 0; i <= this.stacks; i++) {
 		for(j = 0; j < this.slices; j++) {
 			this.vertices.push(Math.cos(ang*j) * Math.cos(angHor*i),Math.sin(ang*j) * Math.cos(angHor*i), Math.sin(angHor*i));
-			//this.vertices.push(Math.cos(ang*(j+1)),Math.sin(ang*(j+1)),i);
 			this.normals.push(Math.cos(ang*j) * Math.cos(angHor*i),Math.sin(ang*j) * Math.cos(angHor*i),0);
-			//this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
 		}
 	}
 		

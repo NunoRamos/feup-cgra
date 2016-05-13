@@ -19,6 +19,10 @@ serialInclude([
 	'MyInterface.js',
 	'MyDrone.js',
 	'MyDroneLeg.js',
+	'MyCircle.js',
+	'MyFullCylinder.js',
+	'MySemiSphere.js',
+	'MyDroneLegArch.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

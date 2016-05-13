@@ -3,58 +3,27 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-
-function MyDroneLeg(scene, slices) {
+function MyDroneLeg(scene) {
 	CGFobject.call(this,scene);
+	this.scene = scene;
 
-	this.slices = slices;
-
-	this.initBuffers();
+	this.cylinder = new MyFullCylinder(scene, 20, 1);
+	this.arch = new MyDroneLegArch(scene, 20);
 };
 
 MyDroneLeg.prototype = Object.create(CGFobject.prototype);
 MyDroneLeg.prototype.constructor=MyDroneLeg;
 
-MyDroneLeg.prototype.initBuffers = function () {
-	this.vertices = [];
- 	this.normals = [];
- 	this.indices = [];
- 	this.texCoords = [];
+MyDroneLeg.prototype.display = function() {
+	this.scene.pushMatrix();
+ 		this.scene.translate(2, 0, 0.1);
+ 		this.scene.rotate(-Math.PI/2, 0, 1, 0);
+ 		this.scene.scale(0.1, 0.1, 4);
+		this.cylinder.display();
+	this.scene.popMatrix();
 
- 	var patchLengthx = 1 / this.slices;
- 	var patchLengthy = 1;
- 	var xCoord =0;
- 	var yCoord =0;
-	var ang=Math.PI/this.slices;
-
-	for(i = 0; i <= 2; i++) {
-		for(j = 0; j < this.slices; j++) {
-			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),i * 0.1);
-			//this.vertices.push(Math.cos(ang*(j+1)),Math.sin(ang*(j+1)),i);
-			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
-			//this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
-			this.texCoords.push(xCoord, yCoord);
-			xCoord += patchLengthx;
-		}
-		xCoord =0;
-		yCoord += patchLengthy;
-	}
-		
-	for(i = 0; i < 2; i++) {
-		for(j = 0; j < this.slices - 1; j++) {
-			this.indices.push(i*this.slices + j, i*this.slices + j+1, (i+1)*this.slices + j);
-			this.indices.push(i*this.slices + j+1, (i+1)*this.slices + j+1, (i+1)*this.slices + j);
-
-			this.indices.push(i*this.slices + j+1, i*this.slices + j, (i+1)*this.slices + j);
-			this.indices.push((i+1)*this.slices + j+1, i*this.slices + j+1, (i+1)*this.slices + j);
-		}
-
-		//this.indices.push(i*this.slices + this.slices - 1, i*this.slices, (i+1)*this.slices + this.slices - 1);
-		//this.indices.push(i*this.slices, i*this.slices + this.slices, (i+1)*this.slices + this.slices - 1);
-	}
-
-
-		
-	this.primitiveType=this.scene.gl.TRIANGLES;
-	this.initGLBuffers();
-};
+	this.scene.pushMatrix();
+		this.scene.scale(2 , 1, 1);
+		this.arch.display();
+	this.scene.popMatrix();
+}

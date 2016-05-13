@@ -16,23 +16,18 @@
 	this.z = 7;
 	this.angle = Math.PI;
 
-	this.arms_1= new MyCylinder(this.scene,20,3);
-	this.arms_2= new MyCylinder(this.scene,20,3);
+	this.arms_1= new MyFullCylinder(this.scene,20,3);
+	this.arms_2= new MyFullCylinder(this.scene,20,3);
 
-	this.arms_cylinder_1 =	new MyCylinder(this.scene,20,1);
-	this.arms_cylinder_2 =	new MyCylinder(this.scene,20,1);
-	this.arms_cylinder_3 =	new MyCylinder(this.scene,20,1);
-	this.arms_cylinder_4 =	new MyCylinder(this.scene,20,1);
+	this.arms_cylinder_1 =	new MyFullCylinder(this.scene,20,1);
+	this.arms_cylinder_2 =	new MyFullCylinder(this.scene,20,1);
+	this.arms_cylinder_3 =	new MyFullCylinder(this.scene,20,1);
+	this.arms_cylinder_4 =	new MyFullCylinder(this.scene,20,1);
 
-	this.droneBody = new MyLamp(this.scene, 80, 200);
+	this.droneBody = new MySemiSphere(this.scene, 80, 200);
 
-	this.leg_1 = new MyDroneLeg(this.scene, 20);
-	this.base_1 = new MyCylinder(this.scene,20,1);
-	this.leg_2 = new MyDroneLeg(this.scene, 20);
-	this.base_2 = new MyCylinder(this.scene,20,1);
-
-
- 	//this.initBuffers();
+	this.leftLeg = new MyDroneLeg(this.scene);
+	this.rightLeg = new MyDroneLeg(this.scene);
  };
 
  MyDrone.prototype = Object.create(CGFobject.prototype);
@@ -81,54 +76,22 @@
  		this.arms_cylinder_4.display();
  	this.scene.popMatrix();
 
-
  	this.scene.pushMatrix();
  		this.scene.rotate(-Math.PI/2, 1, 0 , 0);
  		this.droneBody.display();
  	this.scene.popMatrix();
 
-	this.scene.pushMatrix();
- 		this.scene.translate(2 , -1, 1);
- 		this.scene.rotate(-Math.PI/2, 0, 1, 0);
- 		this.scene.scale(0.1, 0.1, 4);
- 		this.base_1.display();
- 	this.scene.popMatrix();
-
  	this.scene.pushMatrix();
  		this.scene.translate(0, -1, 1);
- 		this.scene.scale(2 , 1, 1);
- 		this.leg_1.display();
- 	this.scene.popMatrix();
- 	
-	this.scene.pushMatrix();
- 		this.scene.translate(2 , -1, -1);
- 		this.scene.rotate(-Math.PI/2, 0, 1, 0);
- 		this.scene.scale(0.1, 0.1, 4);
- 		this.base_2.display();
+ 		this.leftLeg.display();
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
  		this.scene.translate(0, -1, -1);
- 		this.scene.scale(2 , 1, 1);
- 		this.leg_2.display();
+ 		this.rightLeg.display();
  	this.scene.popMatrix();
  	
  }
-
-/* MyDrone.prototype.initBuffers = function() {
-	this.vertices = [ 0.5, 0.3, 0,
-					-0.5, 0.3, 0,
-					0, 0.3, 2 ];
-
-	this.indices = [0, 1, 2];
-
-	this.normals = [0, 1, 0,
-					0, 1, 0,
-					0, 1, 0];
-	
- 	this.primitiveType = this.scene.gl.TRIANGLES;
- 	this.initGLBuffers();
- };*/
 
  MyDrone.prototype.movement = function() {
 	this.scene.translate(this.x, this.y, this.z);
