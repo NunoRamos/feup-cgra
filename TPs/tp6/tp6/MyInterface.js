@@ -66,7 +66,7 @@ MyInterface.prototype.init = function(application) {
  * processKeyboard
  * @param event {Event}
  */
-MyInterface.prototype.processKeyboard = function(event) {
+/*MyInterface.prototype.processKeyboard = function(event) {
 	// call CGFinterface default code (omit if you want to override)
 	CGFinterface.prototype.processKeyboard.call(this,event);
 	
@@ -95,4 +95,66 @@ MyInterface.prototype.processKeyboard = function(event) {
 			this.scene.drone.moveDown();
 			break;
 	};
+};*/
+
+MyInterface.prototype.processKeyDown = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyDown.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	console.log("qwert");
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	switch (event.keyCode)
+	{
+		case (65):	// 'A'
+			this.scene.drone.turnLeft();
+			break;
+		case (68): // 'D'
+			this.scene.drone.turnRight();
+			break;
+		case (87): // 'W'
+			this.scene.drone.moveForward();
+			break;
+		case (83): // 'S'
+			this.scene.drone.moveBackward();
+			break;
+		case (73): // 'I'
+			this.scene.drone.moveUp();
+			break;
+		case (74): // 'J'
+			this.scene.drone.moveDown();
+			break;
+	};
+};
+
+MyInterface.prototype.processKeyUp = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyUp.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+/*switch (event.keyCode)
+	{
+		case (65):	// 'A'
+			this.scene.drone.turnLeft();
+			break;
+		case (68): // 'D'
+			this.scene.drone.turnRight();
+			break;
+		case (87): // 'W'
+			this.scene.drone.moveForward();
+			break;
+		case (83): // 'S'
+			this.scene.drone.moveBackward();
+			break;
+		case (73): // 'I'
+			this.scene.drone.moveUp();
+			break;
+		case (74): // 'J'
+			this.scene.drone.moveDown();
+			break;
+	};*/
 };

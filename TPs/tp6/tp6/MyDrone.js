@@ -26,6 +26,12 @@
 
 	this.droneBody = new MyLamp(this.scene, 80, 200);
 
+	this.leg_1 = new MyDroneLeg(this.scene, 20);
+	this.base_1 = new MyCylinder(this.scene,20,1);
+	this.leg_2 = new MyDroneLeg(this.scene, 20);
+	this.base_2 = new MyCylinder(this.scene,20,1);
+
+
  	//this.initBuffers();
  };
 
@@ -33,7 +39,8 @@
  MyDrone.prototype.constructor = MyDrone;
 
  MyDrone.prototype.display = function(){
- 	this.scene.pushMatrix();
+ 
+	this.scene.pushMatrix();
  		this.scene.translate(0, 0, -3);
  		this.scene.scale(0.2, 0.2, 2);
  		this.arms_1.display();
@@ -79,6 +86,32 @@
  		this.scene.rotate(-Math.PI/2, 1, 0 , 0);
  		this.droneBody.display();
  	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+ 		this.scene.translate(2 , -1, 1);
+ 		this.scene.rotate(-Math.PI/2, 0, 1, 0);
+ 		this.scene.scale(0.1, 0.1, 4);
+ 		this.base_1.display();
+ 	this.scene.popMatrix();
+
+ 	this.scene.pushMatrix();
+ 		this.scene.translate(0, -1, 1);
+ 		this.scene.scale(2 , 1, 1);
+ 		this.leg_1.display();
+ 	this.scene.popMatrix();
+ 	
+	this.scene.pushMatrix();
+ 		this.scene.translate(2 , -1, -1);
+ 		this.scene.rotate(-Math.PI/2, 0, 1, 0);
+ 		this.scene.scale(0.1, 0.1, 4);
+ 		this.base_2.display();
+ 	this.scene.popMatrix();
+
+ 	this.scene.pushMatrix();
+ 		this.scene.translate(0, -1, -1);
+ 		this.scene.scale(2 , 1, 1);
+ 		this.leg_2.display();
+ 	this.scene.popMatrix();
  	
  }
 
@@ -97,7 +130,7 @@
  	this.initGLBuffers();
  };*/
 
- MyDrone.prototype.print = function() {
+ MyDrone.prototype.movement = function() {
 	this.scene.translate(this.x, this.y, this.z);
 	this.scene.rotate(this.angle, 0, 1, 0);
  };

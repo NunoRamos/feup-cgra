@@ -306,14 +306,14 @@ LightingScene.prototype.display = function() {
 		this.rotate(Math.PI/2,1,0,0);
 		this.lamp.display();
 	this.popMatrix();
-/*	this.pushMatrix();
+	this.pushMatrix();
 		this.rotate(-90 * degToRad,1,0,  0);
 		this.scale(1,1, 0.1);
 		this.translate(2,-2,0);
 		this.materialE.apply();
 		this.cilindro.display();
-	this.popMatrix();*/
-/*	
+	this.popMatrix();
+
 	this.materialDefault.apply();
 
 	// 	Prism
@@ -357,11 +357,11 @@ LightingScene.prototype.display = function() {
 		this.rotate(Math.PI, 0, 1 ,0);
 		this.translate(-1.5,0,0);
 		this.airPlane.display();
-	this.popMatrix();*/
-
+	this.popMatrix();
+*/
 	//Drone
 	this.pushMatrix();
-		//this.drone.print();
+		//this.drone.movement();
 		this.drone.display();
 	this.popMatrix();
 
