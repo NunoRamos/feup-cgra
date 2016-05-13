@@ -19,10 +19,10 @@
 	this.arms_1= new MyFullCylinder(this.scene,20,3);
 	this.arms_2= new MyFullCylinder(this.scene,20,3);
 
-	this.arms_cylinder_1 =	new MyFullCylinder(this.scene,20,1);
-	this.arms_cylinder_2 =	new MyFullCylinder(this.scene,20,1);
-	this.arms_cylinder_3 =	new MyFullCylinder(this.scene,20,1);
-	this.arms_cylinder_4 =	new MyFullCylinder(this.scene,20,1);
+	this.arms_cylinder_1 =	new MyDroneArm(this.scene);
+	this.arms_cylinder_2 =	new MyDroneArm(this.scene);
+	this.arms_cylinder_3 =	new MyDroneArm(this.scene);
+	this.arms_cylinder_4 =	new MyDroneArm(this.scene);
 
 	this.droneBody = new MySemiSphere(this.scene, 80, 200);
 
@@ -49,30 +49,22 @@
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
- 	 	this.scene.translate(0, 0, 3);
- 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
- 		this.scene.scale(0.5, 0.5, 1);
+ 	 	this.scene.translate(0, 0.5, 3);
  		this.arms_cylinder_1.display();
  	this.scene.popMatrix();
 
  	 this.scene.pushMatrix();
- 	 	this.scene.translate(0, 0, -3);
- 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
- 		this.scene.scale(0.5, 0.5, 1);
+ 	 	this.scene.translate(0, 0.5, -3);
  		this.arms_cylinder_2.display();
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
- 	 	this.scene.translate(3, 0, 0);
- 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
- 		this.scene.scale(0.5, 0.5, 1);
+ 	 	this.scene.translate(3, 0.5, 0);
  		this.arms_cylinder_3.display();
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
- 	 	this.scene.translate(-3, 0, 0);
- 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
- 		this.scene.scale(0.5, 0.5, 1);
+ 	 	this.scene.translate(-3, 0.5, 0);
  		this.arms_cylinder_4.display();
  	this.scene.popMatrix();
 
@@ -131,4 +123,9 @@
 
 	this.velX *= (1-this.attrition);
 	this.velZ *= (1-this.attrition);
+
+	this.arms_cylinder_1.rotate(deltaTime);
+	this.arms_cylinder_2.rotate(deltaTime);
+	this.arms_cylinder_3.rotate(deltaTime);
+	this.arms_cylinder_4.rotate(deltaTime);
  };
