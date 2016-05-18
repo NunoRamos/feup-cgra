@@ -18,7 +18,7 @@
 
 	this.speed = [0.2, 1, 10];
 	this.inclination = 0;
-	this.maxInclination = Math.PI/6;
+	this.maxInclination = Math.PI/5;
 	this.movingForward = false;
 	this.movingBackward = false;
 
@@ -110,9 +110,6 @@
 	this.droneArms[1].setVelocity(this.speed[1]);
 	this.droneArms[2].setVelocity(-this.speed[1]);
 	this.droneArms[3].setVelocity(-this.speed[1]);
-	
-	this.movingForward = false;
-	this.movingBackward = false;
  }
 
  MyDrone.prototype.startTurnLeft = function() {
@@ -140,9 +137,6 @@
 	this.droneArms[3].setVelocity(-this.speed[1]);
 
 	this.movingForward = true;
-
-	this.velX += Math.sin(this.angle);
-	this.velZ += Math.cos(this.angle);
  };
 
  MyDrone.prototype.startMoveBackward = function() {
@@ -152,9 +146,6 @@
 	this.droneArms[3].setVelocity(-this.speed[1]);
 
 	this.movingBackward = true;
-
- 	this.velX -= Math.sin(this.angle);
-	this.velZ -= Math.cos(this.angle);
  };
 
  MyDrone.prototype.startMoveUp = function() {
@@ -178,27 +169,30 @@
   MyDrone.prototype.stopTurnLeft = function() {
 	this.resetMovement();
 
-	this.angle += Math.PI/32;
+	this.angle -= Math.PI/32;
  };
 
  MyDrone.prototype.stopTurnRight = function() {
 	this.resetMovement();
 
-	this.angle -= Math.PI/32;
+	this.angle += Math.PI/32;
  };
 
  MyDrone.prototype.stopMoveForward = function() {
 	this.resetMovement();
 
-	this.velX += Math.sin(this.angle);
-	this.velZ += Math.cos(this.angle);
+	this.movingForward = false;
+
+	/*this.velX += Math.sin(this.angle);
+	this.velZ += Math.cos(this.angle);*/
  };
 
  MyDrone.prototype.stopMoveBackward = function() {
 	this.resetMovement();
-
- 	this.velX -= Math.sin(this.angle);
-	this.velZ -= Math.cos(this.angle);
+	
+	this.movingBackward = false;
+ 	/*this.velX -= Math.sin(this.angle);
+	this.velZ -= Math.cos(this.angle);*/
  };
 
  MyDrone.prototype.stopMoveUp = function() {
@@ -221,13 +215,19 @@
 	this.velZ *= (1-this.attrition);
 
 	if(this.movingForward) {
+		this.velX += Math.sin(this.angle);
+		this.velZ += Math.cos(this.angle);
+
 		if(Math.abs(this.inclination) < this.maxInclination)
 			this.inclination += this.maxInclination*deltaTime;
 	} else if(this.movingBackward) {
+		this.velX -= Math.sin(this.angle);
+		this.velZ -= Math.cos(this.angle);
+
 		if(Math.abs(this.inclination) < this.maxInclination)
 			this.inclination -= this.maxInclination*deltaTime;
 	} else {
-		this.inclination -= 0.25*this.inclination;
+		this.inclination -= this.inclination*0.125;
 	}
 
 	for(var i = 0; i < this.droneArms.length; i++) {

@@ -118,7 +118,7 @@ LightingScene.prototype.init = function(application) {
 	this.clockAnimated = true;
 	this.speed = 1;
 	
-	this.setUpdatePeriod(100);
+	this.setUpdatePeriod(20);
 };
 
 LightingScene.prototype.initCameras = function() {
