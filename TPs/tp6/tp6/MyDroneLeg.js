@@ -16,9 +16,9 @@ MyDroneLeg.prototype.constructor=MyDroneLeg;
 
 MyDroneLeg.prototype.display = function() {
 	this.scene.pushMatrix();
- 		this.scene.translate(2, 0, 0.1);
+ 		this.scene.translate(2.5, 0, 0.1);
  		this.scene.rotate(-Math.PI/2, 0, 1, 0);
- 		this.scene.scale(0.1, 0.1, 4);
+ 		this.scene.scale(0.1, 0.1, 5);
 		this.cylinder.display();
 	this.scene.popMatrix();
 

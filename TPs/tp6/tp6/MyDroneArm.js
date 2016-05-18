@@ -19,7 +19,7 @@ MyDroneArm.prototype.constructor=MyDroneArm;
 MyDroneArm.prototype.display = function() {
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2, 1, 0, 0);
-		this.scene.scale(0.5, 0.5, 1);
+		this.scene.scale(0.25, 0.25, 1);
 		this.cylinder.display();
 	this.scene.popMatrix();
 
