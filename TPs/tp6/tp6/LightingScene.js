@@ -116,8 +116,7 @@ LightingScene.prototype.init = function(application) {
 	this.light3 = true;
 	this.light4 = true;
 	this.clockAnimated = true;
-	this.speed = 3;
-	this.helixSpeed = 1;
+	this.speed = 1;
 	
 	this.setUpdatePeriod(100);
 };
@@ -377,7 +376,7 @@ LightingScene.prototype.update = function(currTime) {
 	if(this.clockAnimated)
 		this.clock.update(deltaTime);
 	this.airPlane.update(currTime);
-	this.drone.update(deltaTime, this.helixSpeed);
+	this.drone.update(deltaTime, this.speed);
 };
 
 LightingScene.prototype.clockAnimation = function () { 

@@ -48,7 +48,7 @@ MyInterface.prototype.init = function(application) {
 	// this.speed=3;
 	// min and max values can be specified as parameters
 	
-	this.gui.add(this.scene, 'speed', -5, 5);
+	this.gui.add(this.scene, 'speed', 0.1, 2);
 
 	var lightGroup = this.gui.addFolder("Lights");
 
@@ -58,8 +58,6 @@ MyInterface.prototype.init = function(application) {
 	lightGroup.add(this.scene, 'light2');
 	lightGroup.add(this.scene, 'light3');
 	lightGroup.add(this.scene, 'light4');
-
-	this.gui.add(this.scene, 'helixSpeed', 0.1, 2);
 
 	return true;
 };
