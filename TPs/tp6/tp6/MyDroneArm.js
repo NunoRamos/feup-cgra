@@ -8,7 +8,8 @@ function MyDroneArm(scene) {
 	this.scene = scene;
 
 	this.angle = 0;
-
+	this.velocity = 1;
+	
 	this.helix = new MyHelix(scene);
 	this.cylinder = new MyFullCylinder(scene, 20, 1);
 };
@@ -29,7 +30,11 @@ MyDroneArm.prototype.display = function() {
 	this.scene.popMatrix();
 }
 
-MyDroneArm.prototype.rotate = function(deltaTime) {
-	this.angle += deltaTime*50;
+MyDroneArm.prototype.setVelocity = function(velocity) {
+	this.velocity = velocity;
+}
+
+MyDroneArm.prototype.update = function(deltaTime, helixSpeed) {
+	this.angle += deltaTime*this.velocity*helixSpeed;
 }
 
