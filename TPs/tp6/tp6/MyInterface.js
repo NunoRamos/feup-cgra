@@ -48,7 +48,7 @@ MyInterface.prototype.init = function(application) {
 	// this.speed=3;
 	// min and max values can be specified as parameters
 	
-	this.gui.add(this.scene, 'speed', -5, 5);
+	this.gui.add(this.scene, 'speed', 0.1, 2);
 
 	var lightGroup = this.gui.addFolder("Lights");
 
@@ -106,27 +106,32 @@ MyInterface.prototype.processKeyDown = function(event) {
 	
 	// Check key codes e.g. here: http://www.asciitable.com/
 	// or use String.fromCharCode(event.keyCode) to compare chars
-	console.log("qwert");
 	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
 	switch (event.keyCode)
 	{
 		case (65):	// 'A'
-			this.scene.drone.turnLeft();
+			this.scene.drone.startTurnLeft();
 			break;
 		case (68): // 'D'
-			this.scene.drone.turnRight();
+			this.scene.drone.startTurnRight();
 			break;
 		case (87): // 'W'
-			this.scene.drone.moveForward();
+			this.scene.drone.startMoveForward();
 			break;
 		case (83): // 'S'
-			this.scene.drone.moveBackward();
+			this.scene.drone.startMoveBackward();
 			break;
 		case (73): // 'I'
-			this.scene.drone.moveUp();
+			this.scene.drone.startMoveUp();
 			break;
 		case (74): // 'J'
-			this.scene.drone.moveDown();
+			this.scene.drone.startMoveDown();
+			break;
+		case (80): // 'P'
+			this.scene.drone.retractHook();
+			break;
+		case (76): // 'L'
+			this.scene.drone.extendHook();
 			break;
 	};
 };
@@ -139,25 +144,25 @@ MyInterface.prototype.processKeyUp = function(event) {
 	// or use String.fromCharCode(event.keyCode) to compare chars
 	
 	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
-/*switch (event.keyCode)
-	{
+
+	switch (event.keyCode) {
 		case (65):	// 'A'
-			this.scene.drone.turnLeft();
+			this.scene.drone.stopTurnLeft();
 			break;
 		case (68): // 'D'
-			this.scene.drone.turnRight();
+			this.scene.drone.stopTurnRight();
 			break;
 		case (87): // 'W'
-			this.scene.drone.moveForward();
+			this.scene.drone.stopMoveForward();
 			break;
 		case (83): // 'S'
-			this.scene.drone.moveBackward();
+			this.scene.drone.stopMoveBackward();
 			break;
 		case (73): // 'I'
-			this.scene.drone.moveUp();
+			this.scene.drone.stopMoveUp();
 			break;
 		case (74): // 'J'
-			this.scene.drone.moveDown();
+			this.scene.drone.stopMoveDown();
 			break;
-	};*/
+	};
 };

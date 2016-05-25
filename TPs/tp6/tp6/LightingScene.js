@@ -109,6 +109,7 @@ LightingScene.prototype.init = function(application) {
 	this.clock = new MyClock(this);
 	this.airPlane = new MyAirPlane(this, 12, 3.5);
 	this.drone = new MyDrone(this);
+	this.weight = new MyWeight(this, 0, 0, 0);
 
 	this.light0 = true;
 	this.light1 = true;
@@ -116,11 +117,10 @@ LightingScene.prototype.init = function(application) {
 	this.light3 = true;
 	this.light4 = true;
 	this.clockAnimated = true;
-	this.speed = 3;
 
 	this.textures = 0;
-		
-	this.setUpdatePeriod(100);
+	this.speed = 1;
+	this.setUpdatePeriod(20);
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -362,9 +362,12 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	//Drone
-	this.pushMatrix();	
-		this.drone.movement();
+	this.pushMatrix();
 		this.drone.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+		this.weight.display();
 	this.popMatrix();
 
 	this.materialDefault.apply();
@@ -378,7 +381,7 @@ LightingScene.prototype.update = function(currTime) {
 	if(this.clockAnimated)
 		this.clock.update(deltaTime);
 	this.airPlane.update(currTime);
-	this.drone.update(deltaTime);
+	this.drone.update(deltaTime, this.speed);
 };
 
 LightingScene.prototype.clockAnimation = function () { 
