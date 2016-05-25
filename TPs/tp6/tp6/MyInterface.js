@@ -59,6 +59,9 @@ MyInterface.prototype.init = function(application) {
 	lightGroup.add(this.scene, 'light3');
 	lightGroup.add(this.scene, 'light4');
 
+	// Choose from named values
+	this.gui.add(this.scene, 'textures', { texture1: 0, texture2: 1, texture3: 2} );
+
 	return true;
 };
 

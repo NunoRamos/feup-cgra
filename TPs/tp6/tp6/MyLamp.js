@@ -18,16 +18,24 @@
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
+ 	this.texCoords = [];
 	
 	var ang=(2*Math.PI)/this.slices;
 	var angHor=(Math.PI/2)/this.stacks;
+	var radiusTexture = 0;
+	var incRadiusTexture = 0.5/this.stacks;
 
 	for(i = 0; i <= this.stacks; i++) {
 		for(j = 0; j < this.slices; j++) {
-			this.vertices.push(Math.cos(ang*j) * Math.cos(angHor*i),Math.sin(ang*j) * Math.cos(angHor*i), Math.sin(angHor*i));
+			var x = Math.cos(ang*j) * Math.cos(angHor*i);
+			var y = Math.sin(ang*j) * Math.cos(angHor*i);
+			this.vertices.push(x ,y, Math.sin(angHor*i));
 			this.normals.push(Math.cos(ang*j) * Math.cos(angHor*i),Math.sin(ang*j) * Math.cos(angHor*i),0);
+			this.texCoords.push(x * 0.5 + 0.5, y * 0.5 + 0.5);
 		}
-	}
+		radiusTexture += incRadiusTexture;
+
+	}	
 		
 	for(i = 0; i < this.stacks; i++) {
 		for(j = 0; j < this.slices - 1; j++) {

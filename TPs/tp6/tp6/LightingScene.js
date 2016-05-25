@@ -117,7 +117,9 @@ LightingScene.prototype.init = function(application) {
 	this.light4 = true;
 	this.clockAnimated = true;
 	this.speed = 3;
-	
+
+	this.textures = 0;
+		
 	this.setUpdatePeriod(100);
 };
 
@@ -235,7 +237,7 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 	// Floor
-/*	this.pushMatrix();
+	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
@@ -358,10 +360,10 @@ LightingScene.prototype.display = function() {
 		this.translate(-1.5,0,0);
 		this.airPlane.display();
 	this.popMatrix();
-*/
+
 	//Drone
-	this.pushMatrix();
-		//this.drone.movement();
+	this.pushMatrix();	
+		this.drone.movement();
 		this.drone.display();
 	this.popMatrix();
 
