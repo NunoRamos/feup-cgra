@@ -25,6 +25,8 @@ serialInclude([
 	'MyDroneLegArch.js',
 	'MyHelix.js',
 	'MyDroneArm.js',
+	'MyHook.js',
+	'MyWeight.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

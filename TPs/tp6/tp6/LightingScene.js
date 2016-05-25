@@ -109,6 +109,7 @@ LightingScene.prototype.init = function(application) {
 	this.clock = new MyClock(this);
 	this.airPlane = new MyAirPlane(this, 12, 3.5);
 	this.drone = new MyDrone(this);
+	this.weight = new MyWeight(this, 0, 0, 0);
 
 	this.light0 = true;
 	this.light1 = true;
@@ -361,8 +362,11 @@ LightingScene.prototype.display = function() {
 */
 	//Drone
 	this.pushMatrix();
-		//this.drone.movement();
 		this.drone.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+		this.weight.display();
 	this.popMatrix();
 
 	this.materialDefault.apply();
