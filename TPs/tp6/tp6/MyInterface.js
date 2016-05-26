@@ -128,10 +128,10 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.drone.startMoveDown();
 			break;
 		case (80): // 'P'
-			this.scene.drone.retractHook();
+			this.scene.drone.startRetractHook();
 			break;
 		case (76): // 'L'
-			this.scene.drone.extendHook();
+			this.scene.drone.startExtendHook();
 			break;
 	};
 };
@@ -163,6 +163,12 @@ MyInterface.prototype.processKeyUp = function(event) {
 			break;
 		case (74): // 'J'
 			this.scene.drone.stopMoveDown();
+			break;
+		case (80): // 'P'
+			this.scene.drone.stopRetractHook();
+			break;
+		case (76): // 'L'
+			this.scene.drone.stopExtendHook();
 			break;
 	};
 };
