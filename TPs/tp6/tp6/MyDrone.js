@@ -29,99 +29,93 @@
 	this.extendingHook = false;
 	this.retractingHook = false;
 
-	this.arms_1= new MyFullCylinder(this.scene,20,3);
-	this.arms_2= new MyFullCylinder(this.scene,20,3);
+	this.droneCross = [new MyFullCylinder(this.scene,20,3),
+						new MyFullCylinder(this.scene,20,3)];
 
 	this.droneArms = [new MyDroneArm(this.scene), 
 						new MyDroneArm(this.scene),
 						new MyDroneArm(this.scene),
 						new MyDroneArm(this.scene) ];
 
-	this.resetMovement();
-
 	this.droneBody = new MySemiSphere(this.scene, 80, 200);
-
 	this.leftLeg = new MyDroneLeg(this.scene);
 	this.rightLeg = new MyDroneLeg(this.scene);
+	this.hook = new MyHook(this.scene, this.x, this.y, this.z, 1);
+
+	this.resetMovement();
+
+	this.bodyMaterial = [new CGFappearance(this.scene), new CGFappearance(this.scene), new CGFappearance(this.scene)];
+	this.legMaterial = [new CGFappearance(this.scene), new CGFappearance(this.scene), new CGFappearance(this.scene)];
+	this.crossMaterial = [new CGFappearance(this.scene), new CGFappearance(this.scene), new CGFappearance(this.scene)];
+	this.armMaterial = [new CGFappearance(this.scene), new CGFappearance(this.scene), new CGFappearance(this.scene)];
+
 
 	this.hook = new MyHook(this.scene, this.x, this.y, this.z, 1);
 
 	//creating all the materials for the first texture
-	this.bodyMaterial_text1 = new CGFappearance(this.scene);
-	this.bodyMaterial_text1.setDiffuse(1,1,1,1);
-	this.bodyMaterial_text1.setSpecular(0.1,0.1,0.1,1);
-	this.bodyMaterial_text1.setShininess(1);
-	this.bodyMaterial_text1.loadTexture("../resources/images/yellowTexture.jpg")
+	this.bodyMaterial[0].setDiffuse(1,1,1,1);
+	this.bodyMaterial[0].setSpecular(0.1,0.1,0.1,1);
+	this.bodyMaterial[0].setShininess(1);
+	this.bodyMaterial[0].loadTexture("../resources/images/yellowTexture.jpg")
 
-	this.legMaterial_text1 = new CGFappearance(this.scene);
-	this.legMaterial_text1.setDiffuse(1,1,1,1);
-	this.legMaterial_text1.setSpecular(0.1,0.1,0.1,1);
-	this.legMaterial_text1.setShininess(1);
-	this.legMaterial_text1.loadTexture("../resources/images/test.jpg")
+	this.legMaterial[0].setDiffuse(1,1,1,1);
+	this.legMaterial[0].setSpecular(0.1,0.1,0.1,1);
+	this.legMaterial[0].setShininess(1);
+	this.legMaterial[0].loadTexture("../resources/images/test.jpg")
 
-	this.armMaterial_text1 = new CGFappearance(this.scene);
-	this.armMaterial_text1.setDiffuse(1,1,1,1);
-	this.armMaterial_text1.setSpecular(0.1,0.1,0.1,1);
-	this.armMaterial_text1.setShininess(1);
-	this.armMaterial_text1.loadTexture("../resources/images/test.jpg")
+	this.crossMaterial[0].setDiffuse(1,1,1,1);
+	this.crossMaterial[0].setSpecular(0.1,0.1,0.1,1);
+	this.crossMaterial[0].setShininess(1);
+	this.crossMaterial[0].loadTexture("../resources/images/test.jpg")
 
-	this.armMaterial_2_text1 = new CGFappearance(this.scene);
-	this.armMaterial_2_text1.setDiffuse(1,1,1,1);
-	this.armMaterial_2_text1.setSpecular(0.1,0.1,0.1,1);
-	this.armMaterial_2_text1.setShininess(1);
-	this.armMaterial_2_text1.loadTexture("../resources/images/yellowTexture.jpg")
+	this.armMaterial[0].setDiffuse(1,1,1,1);
+	this.armMaterial[0].setSpecular(0.1,0.1,0.1,1);
+	this.armMaterial[0].setShininess(1);
+	this.armMaterial[0].loadTexture("../resources/images/yellowTexture.jpg")
 	//finished loading all the materials for the first texture
 
 	//creating all the materials for the second texture
-	this.bodyMaterial_text2 = new CGFappearance(this.scene);
-	this.bodyMaterial_text2.setDiffuse(1,1,1,1);
-	this.bodyMaterial_text2.setSpecular(0.1,0.1,0.1,1);
-	this.bodyMaterial_text2.setShininess(1);
-	this.bodyMaterial_text2.loadTexture("../resources/images/redTexture.jpg")
+	this.bodyMaterial[1].setDiffuse(1,1,1,1);
+	this.bodyMaterial[1].setSpecular(0.1,0.1,0.1,1);
+	this.bodyMaterial[1].setShininess(1);
+	this.bodyMaterial[1].loadTexture("../resources/images/redTexture.jpg")
 
-	this.legMaterial_text2 = new CGFappearance(this.scene);
-	this.legMaterial_text2.setDiffuse(1,1,1,1);
-	this.legMaterial_text2.setSpecular(0.1,0.1,0.1,1);
-	this.legMaterial_text2.setShininess(1);
-	this.legMaterial_text2.loadTexture("../resources/images/redAndWhiteTexture_2.png")
+	this.legMaterial[1].setDiffuse(1,1,1,1);
+	this.legMaterial[1].setSpecular(0.1,0.1,0.1,1);
+	this.legMaterial[1].setShininess(1);
+	this.legMaterial[1].loadTexture("../resources/images/redAndWhiteTexture_2.png")
 
-	this.armMaterial_text2 = new CGFappearance(this.scene);
-	this.armMaterial_text2.setDiffuse(1,1,1,1);
-	this.armMaterial_text2.setSpecular(0.1,0.1,0.1,1);
-	this.armMaterial_text2.setShininess(1);
-	this.armMaterial_text2.loadTexture("../resources/images/redAndWhiteTexture.jpg")
+	this.crossMaterial[1].setDiffuse(1,1,1,1);
+	this.crossMaterial[1].setSpecular(0.1,0.1,0.1,1);
+	this.crossMaterial[1].setShininess(1);
+	this.crossMaterial[1].loadTexture("../resources/images/redAndWhiteTexture.jpg")
 
-	this.armMaterial_2_text2 = new CGFappearance(this.scene);
-	this.armMaterial_2_text2.setDiffuse(1,1,1,1);
-	this.armMaterial_2_text2.setSpecular(0.1,0.1,0.1,1);
-	this.armMaterial_2_text2.setShininess(1);
-	this.armMaterial_2_text2.loadTexture("../resources/images/redTexture.jpg")
+	this.armMaterial[1].setDiffuse(1,1,1,1);
+	this.armMaterial[1].setSpecular(0.1,0.1,0.1,1);
+	this.armMaterial[1].setShininess(1);
+	this.armMaterial[1].loadTexture("../resources/images/redTexture.jpg")
 	//finished loading all the materials for the second texture
 
 	//creating all the materials for the third texture
-	this.bodyMaterial_text3 = new CGFappearance(this.scene);
-	this.bodyMaterial_text3.setDiffuse(1,1,1,1);
-	this.bodyMaterial_text3.setSpecular(0.1,0.1,0.1,1);
-	this.bodyMaterial_text3.setShininess(1);
-	this.bodyMaterial_text3.loadTexture("../resources/images/fcporto.jpeg")
+	this.bodyMaterial[2].setDiffuse(1,1,1,1);
+	this.bodyMaterial[2].setSpecular(0.1,0.1,0.1,1);
+	this.bodyMaterial[2].setShininess(1);
+	this.bodyMaterial[2].loadTexture("../resources/images/fcporto.jpeg")
 
-	this.legMaterial_text3 = new CGFappearance(this.scene);
-	this.legMaterial_text3.setDiffuse(1,1,1,1);
-	this.legMaterial_text3.setSpecular(0.1,0.1,0.1,1);
-	this.legMaterial_text3.setShininess(1);
-	this.legMaterial_text3.loadTexture("../resources/images/blueTexture.jpg")
+	this.legMaterial[2].setDiffuse(1,1,1,1);
+	this.legMaterial[2].setSpecular(0.1,0.1,0.1,1);
+	this.legMaterial[2].setShininess(1);
+	this.legMaterial[2].loadTexture("../resources/images/blueTexture.jpg")
 
-	this.armMaterial_text3 = new CGFappearance(this.scene);
-	this.armMaterial_text3.setDiffuse(1,1,1,1);
-	this.armMaterial_text3.setSpecular(0.1,0.1,0.1,1);
-	this.armMaterial_text3.setShininess(1);
-	this.armMaterial_text3.loadTexture("../resources/images/blueAndWhiteTexture.jpg")
+	this.crossMaterial[2].setDiffuse(1,1,1,1);
+	this.crossMaterial[2].setSpecular(0.1,0.1,0.1,1);
+	this.crossMaterial[2].setShininess(1);
+	this.crossMaterial[2].loadTexture("../resources/images/blueAndWhiteTexture.jpg")
 
-	this.armMaterial_2_text3 = new CGFappearance(this.scene);
-	this.armMaterial_2_text3.setDiffuse(1,1,1,1);
-	this.armMaterial_2_text3.setSpecular(0.1,0.1,0.1,1);
-	this.armMaterial_2_text3.setShininess(1);
-	this.armMaterial_2_text3.loadTexture("../resources/images/blueTexture.jpg")
+	this.armMaterial[2].setDiffuse(1,1,1,1);
+	this.armMaterial[2].setSpecular(0.1,0.1,0.1,1);
+	this.armMaterial[2].setShininess(1);
+	this.armMaterial[2].loadTexture("../resources/images/blueTexture.jpg")
 	//finished loading all the materials for the third texture
 
 	this.hookMaterial = new CGFappearance(this.scene);
@@ -129,12 +123,6 @@
 	this.hookMaterial.setSpecular(0.1,0.1,0.1,1);
 	this.hookMaterial.setShininess(1);
 	this.hookMaterial.loadTexture("../resources/images/ropeTexture.jpg")
-
-	this.bodyMaterial = [this.bodyMaterial_text1, this.bodyMaterial_text2, this.bodyMaterial_text3];
-	this.legMaterial = [this.legMaterial_text1, this.legMaterial_text2, this.legMaterial_text3];
-	this.armMaterial = [this.armMaterial_text1, this.armMaterial_text2, this.armMaterial_text3];
-	this.armMaterial_2 = [this.armMaterial_2_text1, this.armMaterial_2_text2, this.armMaterial_2_text3];
-
  };
 
  MyDrone.prototype = Object.create(CGFobject.prototype);
@@ -148,59 +136,46 @@
 		this.scene.rotate(this.angle, 0, 1, 0);
 		this.scene.rotate(this.inclination, 1, 0, 0);
 		this.scene.scale(0.5, 0.5, 0.5);
-
 		this.scene.materialDefault.apply();
 
 		this.scene.pushMatrix();
  			this.scene.translate(0, 0, -3);
  			this.scene.scale(0.2, 0.2, 2);
- 			this.armMaterial[this.scene.textures].apply();
- 			this.arms_1.display();
+ 			this.crossMaterial[this.scene.textures].apply();
+ 			this.droneCross[0].display();
  		this.scene.popMatrix();
-
- 		this.scene.materialDefault.apply();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.translate(0, 0, -3);
 			this.scene.scale(0.2, 0.2, 2);
- 			this.armMaterial[this.scene.textures].apply();
-			this.arms_2.display();
+ 			this.crossMaterial[this.scene.textures].apply();
+			this.droneCross[1].display();
 		this.scene.popMatrix();
-
-		this.scene.materialDefault.apply();
 
 		this.scene.pushMatrix();
 			this.scene.translate(0, 0.5, 3);
- 	 		this.armMaterial_2[this.scene.textures].apply();
+ 	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[0].display();
 		this.scene.popMatrix();
 
-		this.scene.materialDefault.apply();
-
 		 this.scene.pushMatrix();
 			this.scene.translate(0, 0.5, -3);
- 	 		this.armMaterial_2[this.scene.textures].apply();
+ 	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[1].display();
 		this.scene.popMatrix();
 
-		this.scene.materialDefault.apply();
-
 		this.scene.pushMatrix();
 			this.scene.translate(3, 0.5, 0);
- 	 		this.armMaterial_2[this.scene.textures].apply();
+ 	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[2].display();
 		this.scene.popMatrix();
 
-		this.scene.materialDefault.apply();
-
 		this.scene.pushMatrix();
 			this.scene.translate(-3, 0.5, 0);
- 	 		this.armMaterial_2[this.scene.textures].apply();
+ 	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[3].display();
 		this.scene.popMatrix();
-
-		this.scene.materialDefault.apply();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(-Math.PI/2, 1, 0 , 0);
@@ -208,16 +183,12 @@
 			this.droneBody.display();
 		this.scene.popMatrix();
 
-		this.scene.materialDefault.apply();
-
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.translate(0, -1, 1);
  			this.legMaterial[this.scene.textures].apply();
 			this.leftLeg.display();
 		this.scene.popMatrix();
-
-		this.scene.materialDefault.apply();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
@@ -240,10 +211,12 @@
  };
 
  MyDrone.prototype.resetMovement = function() {
- 	this.droneArms[0].setVelocity(this.speed[1]);
-	this.droneArms[1].setVelocity(this.speed[1]);
-	this.droneArms[2].setVelocity(-this.speed[1]);
-	this.droneArms[3].setVelocity(-this.speed[1]);
+ 	if(!(this.movingUp || this.movingDown || this.movingLeft || this.movingRight || this.movingForward || this.movingBackward)) {
+ 		this.droneArms[0].setVelocity(this.speed[1]);
+		this.droneArms[1].setVelocity(this.speed[1]);
+		this.droneArms[2].setVelocity(-this.speed[1]);
+		this.droneArms[3].setVelocity(-this.speed[1]);
+	}
  };
 
  MyDrone.prototype.startTurnLeft = function() {
@@ -288,7 +261,6 @@
 	this.droneArms[2].setVelocity(-this.speed[2]);
 	this.droneArms[3].setVelocity(-this.speed[2]);
 
-	//this.y += 0.1;
 	this.movingUp = true;
  };
 
@@ -298,7 +270,6 @@
 	this.droneArms[2].setVelocity(-this.speed[0]);
 	this.droneArms[3].setVelocity(-this.speed[0]);
 
-	//this.y -= 0.1;
 	this.movingDown = true;
  };
 
@@ -314,41 +285,33 @@
  };
 
   MyDrone.prototype.stopTurnLeft = function() {
-	this.resetMovement();
-
 	this.movingLeft = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopTurnRight = function() {
-	this.resetMovement();
-
 	this.movingRight = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveForward = function() {
-	this.resetMovement();
-
 	this.movingForward = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveBackward = function() {
-	this.resetMovement();
-	
 	this.movingBackward = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveUp = function() {
- 	this.resetMovement();
-
-	//this.y += 0.1;
 	this.movingUp = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveDown = function() {
-	this.resetMovement();
-
-	//this.y -= 0.1;
 	this.movingDown = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopRetractHook = function() {
@@ -392,15 +355,13 @@
 
 	if(this.movingLeft){
 		this.velRot += 4*Math.PI/32;
-	}
-	else if(this.movingRight){
+	} else if(this.movingRight){
 		this.velRot -= 4*Math.PI/32; 
 	}
 
 	if(this.movingUp){
 		this.velY += 0.5;
-	}
-	else if(this.movingDown){
+	} else if(this.movingDown){
 		this.velY -= 0.5;
 	}
 
