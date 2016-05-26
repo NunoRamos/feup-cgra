@@ -16,6 +16,7 @@ function MyHook(scene, x, y, z, height) {
 	this.tolerance = 0.5;
 
 	this.cable = new MyFullCylinder(scene, 3, 5);
+	this.tip = new MyGrip(scene);
 };
 
 MyHook.prototype = Object.create(CGFobject.prototype);
@@ -36,14 +37,22 @@ MyHook.prototype.display = function() {
 		this.scene.scale(0.1, 0.1, this.height/5);
 		this.cable.display();
 	this.scene.popMatrix();
+	
+	this.scene.pushMatrix();
+		this.scene.translate(0, -1-this.height, 0);
+		this.scene.rotate(this.angle, 0 ,1,0);
+		this.scene.scale(1, 0.5, 1);
+		this.tip.display();
+	this.scene.popMatrix();
 };
 
-MyHook.prototype.update = function(deltaTime, x, y, z, attrition) {
+MyHook.prototype.update = function(deltaTime, x, y, z, attrition, angle) {
 	this.x = x;
 	this.y = y;
 	this.z = z;
 	this.velY *= (1-attrition);
 	this.height += this.velY*deltaTime;
+	this.angle = angle;
 
 	if(this.height < 1)
 		this.height = 1;
@@ -59,7 +68,7 @@ MyHook.prototype.update = function(deltaTime, x, y, z, attrition) {
 			if(this.attached.isAtDestination(this.tolerance)) {
 				this.attached = null;
 			} else {
-				this.attached.setPosition(this.x, this.y-this.height, this.z);	
+				this.attached.setPosition(this.x, this.y-this.height-1, this.z);	
 			}
 		}			
 	}

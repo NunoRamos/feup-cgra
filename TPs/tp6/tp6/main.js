@@ -28,6 +28,7 @@ serialInclude([
 	'MyHook.js',
 	'MyWeight.js',
 	'MyDestination.js',
+	'MyGrip.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

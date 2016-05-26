@@ -370,5 +370,5 @@
 		this.droneArms[i].update(deltaTime, helixSpeed);
 	}
 	
-	this.hook.update(deltaTime, this.x, this.y, this.z, this.attrition);
+	this.hook.update(deltaTime, this.x, this.y, this.z, this.attrition, this.angle);
  };
