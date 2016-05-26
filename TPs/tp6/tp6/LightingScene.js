@@ -41,70 +41,48 @@ LightingScene.prototype.init = function(application) {
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 	// Materials
-	this.materialDefault = new CGFappearance(this);
-	
-	this.materialA = new CGFappearance(this);
-	this.materialA.setAmbient(0.3,0.3,0.3,1);
-	this.materialA.setDiffuse(0.6,0.6,0.6,1);
-    this.materialA.setSpecular(0,0.2,0.8,1);
-	this.materialA.setShininess(120);
-
-	this.materialB = new CGFappearance(this);
-	this.materialB.setAmbient(0.3,0.3,0.3,1);
-	this.materialB.setDiffuse(0.6,0.6,0.6,1);
-	this.materialB.setSpecular(0.8,0.8,0.8,1);	
-	this.materialB.setShininess(120);
+	this.defaultMaterial = new CGFappearance(this);
 
 	this.materialC = new CGFappearance(this);
-    //this.materialC.setAmbient(0.3,0.3,0.3,1);
 	this.materialC.setDiffuse(0,0.498,1,1);
-	//this.materialC.setSpecular(0.8,0.8,0.8,1);	
 	this.materialC.setShininess(120);
 
-	this.materialD = new CGFappearance(this);
-    //this.materialD.setAmbient(0.3,0.3,0.3,1);
-	this.materialD.setDiffuse(0.753,0.753,0.753,1);
-	//this.materialD.setSpecular(0.8,0.8,0.8,1);	
-	this.materialD.setShininess(120);
-
 	this.materialE = new CGFappearance(this);
-	//this.materialE.setAmbient(0.1,0.1,0.1,1);
-	this.materialE.setDiffuse(0.627,0.322,0.176,1);
-	//this.materialE.setSpecular(0.1,0.03,0.03,1);	
+	this.materialE.setDiffuse(0.627,0.322,0.176,1);	
 	this.materialE.setShininess(30);
 
-	this.materialFloor = new CGFappearance(this);
-	this.materialFloor.loadTexture("../resources/images/floor.png");
+	this.floorMaterial = new CGFappearance(this);
+	this.floorMaterial.loadTexture("../resources/images/floor.png");
 
-	this.materialWall = new CGFappearance(this);
-	this.materialWall.loadTexture("../resources/images/window.png");
+	this.wallMaterial = new CGFappearance(this);
+	this.wallMaterial.loadTexture("../resources/images/window.png");
 
-	this.materialBoardLeft = new CGFappearance(this);
-	this.materialBoardLeft.setSpecular(0.1,0.1,0.1,1);
-	this.materialBoardLeft.setShininess(1);
-	this.materialBoardLeft.setDiffuse(1,1,1,1);
-	this.materialBoardLeft.loadTexture("../resources/images/slides.png");
+	this.leftBoardMaterial = new CGFappearance(this);
+	this.leftBoardMaterial.setSpecular(0.1,0.1,0.1,1);
+	this.leftBoardMaterial.setShininess(1);
+	this.leftBoardMaterial.setDiffuse(1,1,1,1);
+	this.leftBoardMaterial.loadTexture("../resources/images/slides.png");
 
-	this.materialBoardRight = new CGFappearance(this);
-	this.materialBoardRight.setSpecular(0.5,0.5,0.5,1);
-	this.materialBoardRight.setShininess(200);
-	this.materialBoardRight.setDiffuse(1,1,1,1);
-	this.materialBoardRight.loadTexture("../resources/images/board.png");
+	this.rightBoardMaterial = new CGFappearance(this);
+	this.rightBoardMaterial.setSpecular(0.5,0.5,0.5,1);
+	this.rightBoardMaterial.setShininess(200);
+	this.rightBoardMaterial.setDiffuse(1,1,1,1);
+	this.rightBoardMaterial.loadTexture("../resources/images/board.png");
 
-	this.materialCilindro = new CGFappearance(this);
-	this.materialCilindro.setSpecular(0.5,0.5,0.5,1);
-	this.materialCilindro.setShininess(20);
-	this.materialCilindro.setDiffuse(1,1,1,1);
-	this.materialCilindro.loadTexture("../resources/images/marmore.png");
+	this.cylinderMaterial = new CGFappearance(this);
+	this.cylinderMaterial.setSpecular(0.5,0.5,0.5,1);
+	this.cylinderMaterial.setShininess(20);
+	this.cylinderMaterial.setDiffuse(1,1,1,1);
+	this.cylinderMaterial.loadTexture("../resources/images/marmore.png");
 
-	this.materialPrisma = new CGFappearance(this);
-	this.materialPrisma.setSpecular(0.5,0.5,0.5,1);
-	this.materialPrisma.setShininess(20);
-	this.materialPrisma.setDiffuse(1,1,1,1);
-	this.materialPrisma.loadTexture("../resources/images/barrel.png");
+	this.prismMaterial = new CGFappearance(this);
+	this.prismMaterial.setSpecular(0.5,0.5,0.5,1);
+	this.prismMaterial.setShininess(20);
+	this.prismMaterial.setDiffuse(1,1,1,1);
+	this.prismMaterial.loadTexture("../resources/images/barrel.png");
 
-	this.prisma=new MyPrism(this,8,3);
-	this.cilindro= new MyCylinder(this,8,3);
+	this.prism = new MyPrism(this,8,3);
+	this.cylinder = new MyCylinder(this,8,3);
 	this.lamp = new MyLamp( this, 8, 20);
 	this.clock = new MyClock(this);
 	this.airPlane = new MyAirPlane(this, 12, 3.5);
@@ -224,7 +202,7 @@ LightingScene.prototype.display = function() {
 	// Draw axis
 	this.axis.display();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 
 	// ---- END Background, camera and axis setup
 
@@ -241,21 +219,20 @@ LightingScene.prototype.display = function() {
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
-		this.materialFloor.apply();
+		this.floorMaterial.apply();
 		this.floor.display();
 	this.popMatrix();
 
 	// Left Wall
 	this.pushMatrix();
-		this.materialWall.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
-		this.materialWall.apply();
+		this.wallMaterial.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+		this.wallMaterial.apply();
 		this.translate(0, 4, 7.5);
 		this.rotate(90 * degToRad, 0, 1, 0);
 		this.scale(15, 8, 0.2);
-		//this.materialC.apply();
 		this.wall.display();
 	this.popMatrix();
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 
 	// Plane Wall
 	this.pushMatrix();
@@ -265,7 +242,7 @@ LightingScene.prototype.display = function() {
 		this.wall.display();
 	this.popMatrix();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 
 	// First Table
 	this.pushMatrix();
@@ -283,9 +260,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
-		//this.materialA.apply();
-		this.materialBoardLeft.apply();
+		this.leftBoardMaterial.apply();
 		this.boardA.display();
 	this.popMatrix();
 
@@ -293,38 +268,35 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
-		//this.materialB.apply();
-		this.materialBoardRight.apply();
+		this.rightBoardMaterial.apply();
 		this.boardB.display();
 	this.popMatrix();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 	
 	// Lamp
 	this.pushMatrix();
-		
 		this.translate(6, 10, 6);
 		this.rotate(Math.PI/2,1,0,0);
 		this.lamp.display();
 	this.popMatrix();
+	
 	this.pushMatrix();
 		this.rotate(-90 * degToRad,1,0,  0);
 		this.scale(1,1, 0.1);
 		this.translate(2,-2,0);
 		this.materialE.apply();
-		this.cilindro.display();
+		this.cylinder.display();
 	this.popMatrix();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 
 	// 	Prism
 	this.pushMatrix();
 		this.translate(3,0,3);
 		this.rotate(-Math.PI/2,1,0,0);
-		this.materialPrisma.apply();
-		//this.materialE.apply();
-		this.prisma.display();
+		this.prismMaterial.apply();
+		this.prism.display();
 	this.popMatrix();
 
 	// Cylinder
@@ -332,12 +304,11 @@ LightingScene.prototype.display = function() {
 		this.translate(0,0,14);
 		this.scale(1,3,1);
 		this.rotate(-Math.PI/2,1,0,0);
-		this.materialCilindro.apply();
-		//this.materialE.apply();
-		this.cilindro.display();
+		this.cylinderMaterial.apply();
+		this.cylinder.display();
 	this.popMatrix();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 	
 	this.pushMatrix();
 		this.scale(1,1,0.4);
@@ -345,7 +316,7 @@ LightingScene.prototype.display = function() {
 		this.clock.display();
 	this.popMatrix();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 
 	//Plane
 	this.pushMatrix();
@@ -370,7 +341,7 @@ LightingScene.prototype.display = function() {
 		this.weight.display();
 	this.popMatrix();
 
-	this.materialDefault.apply();
+	this.defaultMaterial.apply();
 
 	// ---- END Primitive drawing section
 };

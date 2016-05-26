@@ -114,6 +114,8 @@
 	this.armMaterial[2].loadTexture("../resources/images/blueTexture.jpg")
 	//finished loading all the materials for the third texture
 
+	this.defaultMaterial = new CGFappearance(this.scene);
+
  };
 
  MyDrone.prototype = Object.create(CGFobject.prototype);
@@ -127,7 +129,7 @@
 		this.scene.rotate(this.angle, 0, 1, 0);
 		this.scene.rotate(this.inclination, 1, 0, 0);
 		this.scene.scale(0.5, 0.5, 0.5);
-		this.scene.materialDefault.apply();
+		this.scene.defaultMaterial.apply();
 
 		this.scene.pushMatrix();
  			this.scene.translate(0, 0, -3);
@@ -190,7 +192,7 @@
 
 	this.scene.popMatrix();
 
-	this.scene.materialDefault.apply();
+	this.scene.defaultMaterial.apply();
 
 	this.scene.pushMatrix();
 		this.scene.translate(this.x, this.y + 1, this.z);
