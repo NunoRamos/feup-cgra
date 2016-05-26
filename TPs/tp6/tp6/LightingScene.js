@@ -117,8 +117,9 @@ LightingScene.prototype.init = function(application) {
 	this.light3 = true;
 	this.light4 = true;
 	this.clockAnimated = true;
+
+	this.textures = 0;
 	this.speed = 1;
-	
 	this.setUpdatePeriod(20);
 };
 
