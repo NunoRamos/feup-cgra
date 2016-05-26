@@ -10,6 +10,7 @@ function MyHook(scene, x, y, z, height) {
 	this.x = x;
 	this.y = y;
 	this.z = z;
+	this.velY = 0;
 	this.height = height;
 	this.attached = null;
 	this.tolerance = 0.5;
@@ -21,14 +22,11 @@ MyHook.prototype = Object.create(CGFobject.prototype);
 MyHook.prototype.constructor=MyHook;
 
 MyHook.prototype.retract = function() {
-	this.height -= 0.1;
-
-	if(this.height < 1)
-		this.height = 1;
+	this.velY -= 0.5;
 };
 
 MyHook.prototype.extend = function() {
-	this.height += 0.1;
+	this.velY += 0.5;
 };
 
 MyHook.prototype.display = function() {
@@ -40,10 +38,15 @@ MyHook.prototype.display = function() {
 	this.scene.popMatrix();
 };
 
-MyHook.prototype.update = function(deltaTime, x, y, z) {
+MyHook.prototype.update = function(deltaTime, x, y, z, attrition) {
 	this.x = x;
 	this.y = y;
 	this.z = z;
+	this.velY *= (1-attrition);
+	this.height += this.velY*deltaTime;
+
+	if(this.height < 1)
+		this.height = 1;
 
 	if(this.attached === null) {
 		if(Math.abs(this.scene.weight.x - this.x) < this.tolerance &&

@@ -26,6 +26,8 @@
 	this.movingRight = false;
 	this.movingUp = false;
 	this.movingDown = false;
+	this.extendingHook = false;
+	this.retractingHook = false;
 
 	this.droneCross = [new MyFullCylinder(this.scene,20,3),
 						new MyFullCylinder(this.scene,20,3)];
@@ -47,6 +49,8 @@
 	this.crossMaterial = [new CGFappearance(this.scene), new CGFappearance(this.scene), new CGFappearance(this.scene)];
 	this.armMaterial = [new CGFappearance(this.scene), new CGFappearance(this.scene), new CGFappearance(this.scene)];
 
+
+	this.hook = new MyHook(this.scene, this.x, this.y, this.z, 1);
 
 	//creating all the materials for the first texture
 	this.bodyMaterial[0].setDiffuse(1,1,1,1);
@@ -116,6 +120,11 @@
 
 	this.defaultMaterial = new CGFappearance(this.scene);
 
+	this.hookMaterial = new CGFappearance(this.scene);
+	this.hookMaterial.setDiffuse(1,1,1,1);
+	this.hookMaterial.setSpecular(0.1,0.1,0.1,1);
+	this.hookMaterial.setShininess(1);
+	this.hookMaterial.loadTexture("../resources/images/ropeTexture.jpg")
  };
 
  MyDrone.prototype = Object.create(CGFobject.prototype);
@@ -124,7 +133,6 @@
  MyDrone.prototype.display = function(){
 
 	this.scene.pushMatrix();
-
 		this.scene.translate(this.x, this.y, this.z);
 		this.scene.rotate(this.angle, 0, 1, 0);
 		this.scene.rotate(this.inclination, 1, 0, 0);
@@ -196,8 +204,11 @@
 
 	this.scene.pushMatrix();
 		this.scene.translate(this.x, this.y + 1, this.z);
+		this.hookMaterial.apply();
 		this.hook.display();
 	this.scene.popMatrix();
+
+	this.scene.defaultMaterial.apply();
  };
 
  MyDrone.prototype.resetMovement = function() {
@@ -263,6 +274,17 @@
 	this.movingDown = true;
  };
 
+ MyDrone.prototype.startRetractHook = function() {
+	this.retractingHook = true;
+
+	//this.hook.retract();
+ };
+
+ MyDrone.prototype.startExtendHook = function() {
+ 	this.extendingHook = true;
+	// this.hook.extend();
+ };
+
   MyDrone.prototype.stopTurnLeft = function() {
 	this.movingLeft = false;
 	this.resetMovement();
@@ -293,12 +315,14 @@
 	this.resetMovement();
  };
 
- MyDrone.prototype.retractHook = function() {
-	 this.hook.retract();
+ MyDrone.prototype.stopRetractHook = function() {
+	this.retractingHook = false;
+	// this.hook.retract();
  };
 
- MyDrone.prototype.extendHook = function() {
-	 this.hook.extend();
+ MyDrone.prototype.stopExtendHook = function() {
+ 	this.extendingHook = false;
+	//this.hook.extend();
  };
 
  MyDrone.prototype.update = function(deltaTime, helixSpeed) {
@@ -340,9 +364,16 @@
 		this.velY -= 0.5;
 	}
 
+	if(this.retractingHook){
+		this.hook.retract();
+	}
+	else if(this.extendingHook){
+		this.hook.extend();
+	}
+
 	for(var i = 0; i < this.droneArms.length; i++) {
 		this.droneArms[i].update(deltaTime, helixSpeed);
 	}
 	
-	this.hook.update(deltaTime, this.x, this.y, this.z);
+	this.hook.update(deltaTime, this.x, this.y, this.z, this.attrition);
  };
