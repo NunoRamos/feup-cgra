@@ -117,6 +117,11 @@
 
 	this.hook = new MyHook(this.scene, this.x, this.y, this.z, 1);
 
+	this.bodyMaterial = [this.bodyMaterial_text1, this.bodyMaterial_text2, this.bodyMaterial_text3];
+	this.legMaterial = [this.legMaterial_text1, this.legMaterial_text2, this.legMaterial_text3];
+	this.armMaterial = [this.armMaterial_text1, this.armMaterial_text2, this.armMaterial_text3];
+	this.armMaterial_2 = [this.armMaterial_2_text1, this.armMaterial_2_text2, this.armMaterial_2_text3];
+
  };
 
  MyDrone.prototype = Object.create(CGFobject.prototype);
@@ -133,12 +138,7 @@
 		this.scene.pushMatrix();
  			this.scene.translate(0, 0, -3);
  			this.scene.scale(0.2, 0.2, 2);
- 			if(this.scene.textures == 0)
- 			this.armMaterial_text1.apply();
- 		else if(this.scene.textures == 1)
- 			this.armMaterial_text2.apply();
- 		else if(this.scene.textures == 2)
- 			this.armMaterial_text3.apply();
+ 			this.armMaterial[this.scene.textures].apply();
  			this.arms_1.display();
  		this.scene.popMatrix();
 
@@ -146,91 +146,51 @@
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.translate(0, 0, -3);
 			this.scene.scale(0.2, 0.2, 2);
-			if(this.scene.textures == 0)
- 			this.armMaterial_text1.apply();
- 		else if(this.scene.textures == 1)
- 			this.armMaterial_text2.apply();
- 		else if(this.scene.textures == 2)
- 			this.armMaterial_text3.apply();
+ 			this.armMaterial[this.scene.textures].apply();
 			this.arms_2.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.translate(0, 0.5, 3);
-			if(this.scene.textures == 0)
- 	 		this.armMaterial_2_text1.apply();
- 	 	else if(this.scene.textures == 1)
- 	 		this.armMaterial_2_text2.apply();
- 	 	else if(this.scene.textures == 2)
- 	 		this.armMaterial_2_text3.apply();
+ 	 		this.armMaterial_2[this.scene.textures].apply();
 			this.droneArms[0].display();
 		this.scene.popMatrix();
 
 		 this.scene.pushMatrix();
 			this.scene.translate(0, 0.5, -3);
-			if(this.scene.textures == 0)
- 	 		this.armMaterial_2_text1.apply();
- 	 	else if(this.scene.textures == 1)
- 	 		this.armMaterial_2_text2.apply();
- 	 	else if(this.scene.textures == 2)
- 	 		this.armMaterial_2_text3.apply();
+ 	 		this.armMaterial_2[this.scene.textures].apply();
 			this.droneArms[1].display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.translate(3, 0.5, 0);
-			if(this.scene.textures == 0)
- 	 		this.armMaterial_2_text1.apply();
- 	 	else if(this.scene.textures == 1)
- 	 		this.armMaterial_2_text2.apply();
- 	 	else if(this.scene.textures == 2)
- 	 		this.armMaterial_2_text3.apply();
+ 	 		this.armMaterial_2[this.scene.textures].apply();
 			this.droneArms[2].display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.translate(-3, 0.5, 0);
-			if(this.scene.textures == 0)
- 	 		this.armMaterial_2_text1.apply();
- 	 	else if(this.scene.textures == 1)
- 	 		this.armMaterial_2_text2.apply();
- 	 	else if(this.scene.textures == 2)
- 	 		this.armMaterial_2_text3.apply();
+ 	 		this.armMaterial_2[this.scene.textures].apply();
 			this.droneArms[3].display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(-Math.PI/2, 1, 0 , 0);
-			if(this.scene.textures == 0)
- 			this.bodyMaterial_text1.apply();
- 		else if(this.scene.textures == 1)
- 			this.bodyMaterial_text2.apply();
- 		else if(this.scene.textures == 2)
- 			this.bodyMaterial_text3.apply();
+ 			this.bodyMaterial[this.scene.textures].apply();
 			this.droneBody.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.translate(0, -1, 1);
-			if(this.scene.textures == 0)
- 			this.legMaterial_text1.apply();
- 		else if(this.scene.textures == 1)
- 			this.legMaterial_text2.apply();
- 		else if(this.scene.textures == 2)
- 			this.legMaterial_text3.apply();
+ 			this.legMaterial[this.scene.textures].apply();
 			this.leftLeg.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.translate(0, -1, -1);
-			if(this.scene.textures == 0)
- 			this.legMaterial_text1.apply();
- 		else if(this.scene.textures == 1)
- 			this.legMaterial_text2.apply();
- 		else if(this.scene.textures == 2)
- 			this.legMaterial_text3.apply();
+ 			this.legMaterial[this.scene.textures].apply();
 			this.rightLeg.display();
 		this.scene.popMatrix();
 
