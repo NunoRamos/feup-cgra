@@ -55,7 +55,7 @@ MyClock.prototype.display = function() {
 }
 
 MyClock.prototype.update = function(deltaTime) {
-	this.hours.setAngle(this.hours.getAngle() - (((2*Math.PI)/60)/60)/60);
-	this.minutes.setAngle(this.minutes.getAngle() - ((2*Math.PI)/60)/60);
-	this.seconds.setAngle(this.seconds.getAngle() - (2*Math.PI)/60);
+	this.hours.setAngle(this.hours.getAngle() - (((2*Math.PI)/60)/60)/60*deltaTime);
+	this.minutes.setAngle(this.minutes.getAngle() - ((2*Math.PI)/60)/60*deltaTime);
+	this.seconds.setAngle(this.seconds.getAngle() - (2*Math.PI)/60*deltaTime);
 }

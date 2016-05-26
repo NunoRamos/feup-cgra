@@ -12,7 +12,7 @@ function MyHook(scene, x, y, z, height) {
 	this.z = z;
 	this.height = height;
 	this.attached = null;
-	this.tolerance = 0.5;
+	this.tolerance = 0.2;
 
 	this.cable = new MyFullCylinder(scene, 3, 5);
 };
@@ -33,8 +33,9 @@ MyHook.prototype.extend = function() {
 
 MyHook.prototype.display = function() {
 	this.scene.pushMatrix();
-		this.scene.scale(0.1, this.height/2, 0.1);
+		this.scene.translate(0, -1, 0);
 		this.scene.rotate(Math.PI/2, 1, 0, 0);
+		this.scene.scale(0.1, 0.1, this.height/5);
 		this.cable.display();
 	this.scene.popMatrix();
 };
@@ -44,11 +45,9 @@ MyHook.prototype.update = function(deltaTime, x, y, z) {
 	this.y = y;
 	this.z = z;
 
-	console.log("Hook position: " + this.x + "," + (this.y - this.height) + "," + this.z);
-
 	if(this.attached === null) {
 		if(Math.abs(this.scene.weight.x - this.x) < this.tolerance &&
-		 Math.abs(this.scene.weight.y - this.y - this.height) < this.tolerance && 
+		 Math.abs(this.scene.weight.y + this.scene.weight.height/2 - this.y + this.height) < this.tolerance && 
 		 Math.abs(this.scene.weight.z - this.z) < this.tolerance) {
 		 	this.attached = this.scene.weight;
 		 }

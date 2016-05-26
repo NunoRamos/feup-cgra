@@ -2,7 +2,7 @@
  * MyDrone
  * @constructor
  */
- function MyDrone(scene) {
+ function MyDrone(scene, x, y, z) {
  	CGFobject.call(this,scene);
 	
 	this.scene = scene;
@@ -11,9 +11,9 @@
 	this.velX = 0;
 	this.velY = 0;
 	this.velZ = 0;
-	this.x = 4.5;
-	this.y = 4.5;
-	this.z = 7;
+	this.x = x;
+	this.y = y;
+	this.z = z;
 	this.angle = Math.PI;
 
 	this.speed = [0.2, 1, 10];
@@ -44,11 +44,12 @@
  MyDrone.prototype.constructor = MyDrone;
 
  MyDrone.prototype.display = function(){
- 
+
 	this.scene.pushMatrix();
 		this.scene.translate(this.x, this.y, this.z);
 		this.scene.rotate(this.angle, 0, 1, 0);
 		this.scene.rotate(this.inclination, 1, 0, 0);
+		this.scene.scale(0.5, 0.5, 0.5);
 
 		this.scene.pushMatrix();
  			this.scene.translate(0, 0, -3);
@@ -103,13 +104,9 @@
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
-		this.scene.translate(this.x, this.y, this.z);
+		this.scene.translate(this.x, this.y + 1, this.z);
 		this.hook.display();
 	this.scene.popMatrix();
- };
-
- MyDrone.prototype.movement = function() {
-	
  };
 
  MyDrone.prototype.resetMovement = function() {

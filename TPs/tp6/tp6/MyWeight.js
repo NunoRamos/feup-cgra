@@ -11,10 +11,9 @@ function MyWeight(scene, x, y, z) {
 	this.y = y;
 	this.z = z;
 
-	this.height = 1.5;
+	this.height = 0.5;
 
 	this.weight = new MyUnitCubeQuad(scene);
-	console.log("Weight position: " + this.x + "," + this.y + "," + this.z);
 };
 
 MyWeight.prototype = Object.create(CGFobject.prototype);
@@ -23,7 +22,7 @@ MyWeight.prototype.constructor=MyWeight;
 MyWeight.prototype.display = function() {
 	this.scene.pushMatrix();
 		this.scene.translate(this.x, this.y, this.z);
-		this.scene.scale(1.7, 1.5, 2);
+		this.scene.scale(0.5, this.height, 0.5);
 		this.weight.display();
 	this.scene.popMatrix();
 };
