@@ -15,7 +15,8 @@ function MyWeight(scene, x, y, z, destination) {
 	this.height = 0.5;
 
 	this.weight = new MyUnitCubeQuad(scene);
-	this.destination = destination;
+	this.rightArch = new MyDroneLegArch(scene, 10);
+	this.leftArch = new MyDroneLegArch(scene, 10);
 };
 
 MyWeight.prototype = Object.create(CGFobject.prototype);
@@ -24,8 +25,30 @@ MyWeight.prototype.constructor=MyWeight;
 MyWeight.prototype.display = function() {
 	this.scene.pushMatrix();
 		this.scene.translate(this.x, this.y, this.z);
-		this.scene.scale(0.5, this.height, 0.5);
-		this.weight.display();
+
+		this.scene.pushMatrix();
+			this.scene.scale(0.5, this.height, 0.5);
+			this.weight.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			//this.scene.translate(0, 0, 0);
+			this.scene.scale(0.1, 0.1, 0.5);
+
+			this.scene.pushMatrix();
+				this.scene.rotate(Math.PI/2, 0, 0, 1);
+				this.scene.translate(6, 0, 0);
+				this.rightArch.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+				this.scene.rotate(-Math.PI/2, 0, 0, 1);
+				this.scene.translate(-6, 0, 0);
+				this.leftArch.display();
+			this.scene.popMatrix();
+
+		this.scene.popMatrix();
+
 	this.scene.popMatrix();
 
 	this.destination.display();

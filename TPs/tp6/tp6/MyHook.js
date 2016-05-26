@@ -63,5 +63,4 @@ MyHook.prototype.update = function(deltaTime, x, y, z, attrition) {
 			}
 		}			
 	}
-	
 };
