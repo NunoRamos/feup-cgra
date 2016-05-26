@@ -27,20 +27,20 @@
 	this.movingUp = false;
 	this.movingDown = false;
 
-	this.arms_1= new MyFullCylinder(this.scene,20,3);
-	this.arms_2= new MyFullCylinder(this.scene,20,3);
+	this.droneCross = [new MyFullCylinder(this.scene,20,3),
+						new MyFullCylinder(this.scene,20,3)];
 
 	this.droneArms = [new MyDroneArm(this.scene), 
 						new MyDroneArm(this.scene),
 						new MyDroneArm(this.scene),
 						new MyDroneArm(this.scene) ];
 
-	this.resetMovement();
-
 	this.droneBody = new MySemiSphere(this.scene, 80, 200);
-
 	this.leftLeg = new MyDroneLeg(this.scene);
 	this.rightLeg = new MyDroneLeg(this.scene);
+	this.hook = new MyHook(this.scene, this.x, this.y, this.z, 1);
+
+	this.resetMovement();
 
 	//creating all the materials for the first texture
 	this.bodyMaterial_text1 = new CGFappearance(this.scene);
@@ -120,8 +120,6 @@
 	this.armMaterial_2_text3.loadTexture("../resources/images/blueTexture.jpg")
 	//finished loading all the materials for the third texture
 
-	this.hook = new MyHook(this.scene, this.x, this.y, this.z, 1);
-
 	this.bodyMaterial = [this.bodyMaterial_text1, this.bodyMaterial_text2, this.bodyMaterial_text3];
 	this.legMaterial = [this.legMaterial_text1, this.legMaterial_text2, this.legMaterial_text3];
 	this.armMaterial = [this.armMaterial_text1, this.armMaterial_text2, this.armMaterial_text3];
@@ -147,7 +145,7 @@
  			this.scene.translate(0, 0, -3);
  			this.scene.scale(0.2, 0.2, 2);
  			this.armMaterial[this.scene.textures].apply();
- 			this.arms_1.display();
+ 			this.droneCross[0].display();
  		this.scene.popMatrix();
 
  		this.scene.materialDefault.apply();
@@ -157,7 +155,7 @@
 			this.scene.translate(0, 0, -3);
 			this.scene.scale(0.2, 0.2, 2);
  			this.armMaterial[this.scene.textures].apply();
-			this.arms_2.display();
+			this.droneCross[1].display();
 		this.scene.popMatrix();
 
 		this.scene.materialDefault.apply();
@@ -229,10 +227,12 @@
  };
 
  MyDrone.prototype.resetMovement = function() {
- 	this.droneArms[0].setVelocity(this.speed[1]);
-	this.droneArms[1].setVelocity(this.speed[1]);
-	this.droneArms[2].setVelocity(-this.speed[1]);
-	this.droneArms[3].setVelocity(-this.speed[1]);
+ 	if(!(this.movingUp || this.movingDown || this.movingLeft || this.movingRight || this.movingForward || this.movingBackward)) {
+ 		this.droneArms[0].setVelocity(this.speed[1]);
+		this.droneArms[1].setVelocity(this.speed[1]);
+		this.droneArms[2].setVelocity(-this.speed[1]);
+		this.droneArms[3].setVelocity(-this.speed[1]);
+	}
  };
 
  MyDrone.prototype.startTurnLeft = function() {
@@ -277,7 +277,6 @@
 	this.droneArms[2].setVelocity(-this.speed[2]);
 	this.droneArms[3].setVelocity(-this.speed[2]);
 
-	//this.y += 0.1;
 	this.movingUp = true;
  };
 
@@ -287,46 +286,37 @@
 	this.droneArms[2].setVelocity(-this.speed[0]);
 	this.droneArms[3].setVelocity(-this.speed[0]);
 
-	//this.y -= 0.1;
 	this.movingDown = true;
  };
 
   MyDrone.prototype.stopTurnLeft = function() {
-	this.resetMovement();
-
 	this.movingLeft = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopTurnRight = function() {
-	this.resetMovement();
-
 	this.movingRight = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveForward = function() {
-	this.resetMovement();
-
 	this.movingForward = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveBackward = function() {
-	this.resetMovement();
-	
 	this.movingBackward = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveUp = function() {
- 	this.resetMovement();
-
-	//this.y += 0.1;
 	this.movingUp = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.stopMoveDown = function() {
-	this.resetMovement();
-
-	//this.y -= 0.1;
 	this.movingDown = false;
+	this.resetMovement();
  };
 
  MyDrone.prototype.retractHook = function() {
@@ -377,6 +367,10 @@
 	else if(this.movingDown){
 		this.velY -= 0.5;
 	}
+
+/*	if(!(this.movingUp || this.movingDown || this.movingLeft || this.movingRight || this.movingForward || this.movingBackward)) {
+		this.resetMovement();
+	}*/
 
 	for(var i = 0; i < this.droneArms.length; i++) {
 		this.droneArms[i].update(deltaTime, helixSpeed);

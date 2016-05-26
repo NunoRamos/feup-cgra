@@ -12,7 +12,7 @@ function MyHook(scene, x, y, z, height) {
 	this.z = z;
 	this.height = height;
 	this.attached = null;
-	this.tolerance = 0.2;
+	this.tolerance = 0.5;
 
 	this.cable = new MyFullCylinder(scene, 3, 5);
 };
