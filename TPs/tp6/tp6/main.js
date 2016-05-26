@@ -27,6 +27,7 @@ serialInclude([
 	'MyDroneArm.js',
 	'MyHook.js',
 	'MyWeight.js',
+	'MyDestination.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

@@ -87,7 +87,7 @@ LightingScene.prototype.init = function(application) {
 	this.clock = new MyClock(this);
 	this.airPlane = new MyAirPlane(this, 12, 3.5);
 	this.drone = new MyDrone(this, 10, 8, 6);
-	this.weight = new MyWeight(this, 5, 4.2, 8.5);
+	this.weight = new MyWeight(this, 5, 4.2, 8.5, new MyDestination(this, 0, 0, 0));
 
 	this.light0 = true;
 	this.light1 = true;

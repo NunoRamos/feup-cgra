@@ -276,13 +276,10 @@
 
  MyDrone.prototype.startRetractHook = function() {
 	this.retractingHook = true;
-
-	//this.hook.retract();
  };
 
  MyDrone.prototype.startExtendHook = function() {
  	this.extendingHook = true;
-	// this.hook.extend();
  };
 
   MyDrone.prototype.stopTurnLeft = function() {
@@ -317,12 +314,10 @@
 
  MyDrone.prototype.stopRetractHook = function() {
 	this.retractingHook = false;
-	// this.hook.retract();
  };
 
  MyDrone.prototype.stopExtendHook = function() {
  	this.extendingHook = false;
-	//this.hook.extend();
  };
 
  MyDrone.prototype.update = function(deltaTime, helixSpeed) {

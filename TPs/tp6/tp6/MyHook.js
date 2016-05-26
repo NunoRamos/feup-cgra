@@ -55,6 +55,11 @@ MyHook.prototype.update = function(deltaTime, x, y, z, attrition) {
 		 	this.attached = this.scene.weight;
 		 }
 	} else {
-		this.scene.weight.setPosition(this.x, this.y-this.height, this.z);
+		if(this.scene.weight.isAtDestination(this.tolerance)) {
+			this.attached = null;
+		} else {
+			this.scene.weight.setPosition(this.x, this.y-this.height, this.z);	
+		}
+		
 	}		
 };
