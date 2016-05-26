@@ -48,18 +48,20 @@ MyHook.prototype.update = function(deltaTime, x, y, z, attrition) {
 	if(this.height < 1)
 		this.height = 1;
 
-	if(this.attached === null) {
-		if(Math.abs(this.scene.weight.x - this.x) < this.tolerance &&
-		 Math.abs(this.scene.weight.y + this.scene.weight.height/2 - this.y + this.height) < this.tolerance && 
-		 Math.abs(this.scene.weight.z - this.z) < this.tolerance) {
-		 	this.attached = this.scene.weight;
-		 }
-	} else {
-		if(this.scene.weight.isAtDestination(this.tolerance)) {
-			this.attached = null;
+	for(var i = 0; i < this.scene.weights.length; i++) {
+		if(this.attached === null) {
+			if(Math.abs(this.scene.weights[i].x - this.x) < this.tolerance &&
+			 Math.abs(this.scene.weights[i].y + this.scene.weights[i].height/2 - this.y + this.height) < this.tolerance && 
+			 Math.abs(this.scene.weights[i].z - this.z) < this.tolerance) {
+				this.attached = this.scene.weights[i];
+			 }
 		} else {
-			this.scene.weight.setPosition(this.x, this.y-this.height, this.z);	
-		}
-		
-	}		
+			if(this.attached.isAtDestination(this.tolerance)) {
+				this.attached = null;
+			} else {
+				this.attached.setPosition(this.x, this.y-this.height, this.z);	
+			}
+		}			
+	}
+	
 };

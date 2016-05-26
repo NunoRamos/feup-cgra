@@ -87,7 +87,10 @@ LightingScene.prototype.init = function(application) {
 	this.clock = new MyClock(this);
 	this.airPlane = new MyAirPlane(this, 12, 3.5);
 	this.drone = new MyDrone(this, 10, 8, 6);
-	this.weight = new MyWeight(this, 5, 4.2, 8.5, new MyDestination(this, 0, 0, 0));
+	this.weights = [];
+
+	this.weights.push(new MyWeight(this, 5, 4.2, 8.5, new MyDestination(this, 12, 3.2, 8)));
+	this.weights.push(new MyWeight(this, 12, 4.2, 8.5, new MyDestination(this, 5, 3.2, 8)));
 
 	this.light0 = true;
 	this.light1 = true;
@@ -337,9 +340,11 @@ LightingScene.prototype.display = function() {
 		this.drone.display();
 	this.popMatrix();
 
-	this.pushMatrix();
-		this.weight.display();
-	this.popMatrix();
+	for(var i = 0; i < this.weights.length; i++) {
+		this.pushMatrix();
+			this.weights[i].display();
+		this.popMatrix();	
+	}
 
 	this.defaultMaterial.apply();
 

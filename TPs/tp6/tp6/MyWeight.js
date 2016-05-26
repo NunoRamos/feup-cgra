@@ -27,6 +27,8 @@ MyWeight.prototype.display = function() {
 		this.scene.scale(0.5, this.height, 0.5);
 		this.weight.display();
 	this.scene.popMatrix();
+
+	this.destination.display();
 };
 
 MyWeight.prototype.setPosition = function(x, y, z) {
@@ -37,6 +39,6 @@ MyWeight.prototype.setPosition = function(x, y, z) {
 
 MyWeight.prototype.isAtDestination = function(tolerance) {
 	return (Math.abs(this.x - this.destination.x) < tolerance &&
-			Math.abs(this.y - this.destination.y) < tolerance &&
+			Math.abs(this.y - this.height - this.destination.y) < tolerance &&
 			Math.abs(this.z - this.destination.z) < tolerance);
 }

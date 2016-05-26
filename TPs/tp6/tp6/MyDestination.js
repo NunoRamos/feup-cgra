@@ -14,8 +14,8 @@ function MyDestination(scene, x, y, z) {
 	this.square = new MyQuad(scene);
 
 	this.squareMaterial = new CGFappearance(this.scene);
-	//this.squareMaterial.loadTexture("../resources/images/floor.png");
-	
+	this.squareMaterial.loadTexture("../resources/images/x.png");
+
 	this.defaultMaterial = new CGFappearance(this.scene);
 };
 
@@ -24,6 +24,8 @@ MyDestination.prototype.constructor=MyDestination;
 
 MyDestination.prototype.display = function() {
 	this.scene.pushMatrix();
+		this.scene.translate(this.x, this.y, this.z);
+		this.scene.rotate(-Math.PI/2, 1, 0, 0);
 		this.squareMaterial.apply();
 		this.square.display();
 	this.scene.popMatrix();
