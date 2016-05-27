@@ -134,10 +134,12 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.drone.startExtendHook();
 			break;
 		case(79): // 'O'
-			this.scene.drone.hook.tip.setAngle(0);
+			//this.scene.drone.hook.tip.setAngle(0);
+			this.scene.drone.startOpeningTip();
 			break;
 		case(67): // 'C'
-			this.scene.drone.hook.tip.setAngle(Math.PI/3);
+			//this.scene.drone.hook.tip.setAngle(Math.PI/3);
+			this.scene.drone.startClosingTip();
 			break;
 	};
 };
@@ -175,6 +177,12 @@ MyInterface.prototype.processKeyUp = function(event) {
 			break;
 		case (76): // 'L'
 			this.scene.drone.stopExtendHook();
+			break;
+		case(79): // 'O'
+			this.scene.drone.stopOpeningTip();
+			break;
+		case(67): // 'C'
+			this.scene.drone.stopClosingTip();
 			break;
 	};
 };

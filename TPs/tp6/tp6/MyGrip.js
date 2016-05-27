@@ -6,6 +6,7 @@
  	CGFobject.call(this,scene);
 
  	this.angle = 0;
+ 	this.vel = 0;
  	this.open = true;
 	
 	this.part1_grip = new MyDroneLegArch(scene, 20);
@@ -28,7 +29,6 @@
 	this.scene.pushMatrix();
 		this.scene.translate(0 ,-1, -0.05);
 		this.scene.scale(0.5 , 1 , 0.5);
-		//this.scene.rotate(-Math.PI, 1, 0, 0);
 		this.scene.rotate(-this.angle, 0, 0, 1);
 		this.part2_grip.display();
 	this.scene.popMatrix();
@@ -41,9 +41,3 @@
 	this.scene.popMatrix();
  };
 
- MyGrip.prototype.setAngle = function(angle){
- 	if(this.angle != angle){
- 		this.angle = angle;
- 		this.open = !this.open;
- 	}
- }
