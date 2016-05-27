@@ -60,8 +60,8 @@ MyHook.prototype.update = function(deltaTime, x, y, z, attrition, angle) {
 	for(var i = 0; i < this.scene.weights.length; i++) {
 		if(this.attached === null) {
 			if(Math.abs(this.scene.weights[i].x - this.x) < this.tolerance &&
-			 Math.abs(this.scene.weights[i].y + this.scene.weights[i].height/2 - this.y + this.height) < this.tolerance && 
-			 Math.abs(this.scene.weights[i].z - this.z) < this.tolerance) {
+			 Math.abs(this.scene.weights[i].y + this.scene.weights[i].height/2 - this.y + this.height + 1) < this.tolerance && 
+			 Math.abs(this.scene.weights[i].z - this.z) < this.tolerance && !this.tip.open) {
 				this.attached = this.scene.weights[i];
 			 }
 		} else {

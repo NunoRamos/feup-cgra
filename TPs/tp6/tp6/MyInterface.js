@@ -134,10 +134,10 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.drone.startExtendHook();
 			break;
 		case(79): // 'O'
-			this.scene.drone.hook.tip.setAngle(Math.PI/2);
+			this.scene.drone.hook.tip.setAngle(0);
 			break;
 		case(67): // 'C'
-			this.scene.drone.hook.tip.setAngle(0);
+			this.scene.drone.hook.tip.setAngle(Math.PI/3);
 			break;
 	};
 };

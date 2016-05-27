@@ -19,18 +19,17 @@
 
  MyGrip.prototype.display = function() {
 	this.scene.pushMatrix();
-		this.scene.translate(0, -1, -0.1);
-		this.scene.scale(0.5, 1, 1);
-		//this.scene.rotate(Math.PI/2-this.angle, 0, 0, 1);
-		this.scene.rotate(Math.PI/4-this.angle, 0, 0, 1);
+		this.scene.translate(0, -1, -0.05);
+		this.scene.scale(0.5, 1, 0.5);
+		this.scene.rotate(this.angle, 0, 0, 1);
 		this.part1_grip.display();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
-		this.scene.translate(0 ,-1, 0.1);
-		this.scene.scale(0.5 , 1, 1);
-		this.scene.rotate(-Math.PI, 1, 0, 0);
-		this.scene.rotate(-3*Math.PI/4-this.angle, 0, 0, 1);
+		this.scene.translate(0 ,-1, -0.05);
+		this.scene.scale(0.5 , 1 , 0.5);
+		//this.scene.rotate(-Math.PI, 1, 0, 0);
+		this.scene.rotate(-this.angle, 0, 0, 1);
 		this.part2_grip.display();
 	this.scene.popMatrix();
 
@@ -43,6 +42,8 @@
  };
 
  MyGrip.prototype.setAngle = function(angle){
- 	this.angle = angle;
- 	this.open = !this.open;
+ 	if(this.angle != angle){
+ 		this.angle = angle;
+ 		this.open = !this.open;
+ 	}
  }
