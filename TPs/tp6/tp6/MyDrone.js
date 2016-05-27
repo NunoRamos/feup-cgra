@@ -28,7 +28,7 @@
 	this.movingDown = false;
 	this.extendingHook = false;
 	this.retractingHook = false;
-	
+
 	this.droneCross = [new MyFullCylinder(this.scene,20,3),
 						new MyFullCylinder(this.scene,20,3)];
 
@@ -156,24 +156,28 @@
 
 		this.scene.pushMatrix();
 			this.scene.translate(0, 0.5, 3);
+			this.scene.scale(1, 1, 0.7);
  	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[0].display();
 		this.scene.popMatrix();
 
 		 this.scene.pushMatrix();
 			this.scene.translate(0, 0.5, -3);
+			this.scene.scale(1, 1, 0.7);
  	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[1].display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.translate(3, 0.5, 0);
+			this.scene.scale(1, 1, 0.7);
  	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[2].display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.translate(-3, 0.5, 0);
+			this.scene.scale(1, 1, 0.7);
  	 		this.armMaterial[this.scene.textures].apply();
 			this.droneArms[3].display();
 		this.scene.popMatrix();

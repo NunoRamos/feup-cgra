@@ -12,6 +12,7 @@ function MyDroneArm(scene) {
 	
 	this.helix = new MyHelix(scene);
 	this.cylinder = new MyFullCylinder(scene, 20, 1);
+	this.top = new MySemiSphere(scene, 80, 200);
 };
 
 MyDroneArm.prototype = Object.create(CGFobject.prototype);
@@ -27,6 +28,12 @@ MyDroneArm.prototype.display = function() {
 	this.scene.pushMatrix();
 		this.scene.rotate(this.angle, 0, 1, 0);
 		this.helix.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.scale(0.3, 0.3, 0.3);
+		this.scene.rotate(-Math.PI/2, 1, 0 , 0);
+		this.top.display();
 	this.scene.popMatrix();
 }
 
