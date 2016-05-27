@@ -8,9 +8,13 @@
  	this.angle = 0;
  	this.vel = 0;
  	this.open = true;
-	
-	this.part1_grip = new MyDroneLegArch(scene, 20);
-	this.part2_grip = new MyDroneLegArch(scene, 20);
+
+ 
+	this.grip_parts = [ new MyDroneLegArch(scene, 20),
+						new MyDroneLegArch(scene, 20),
+						new MyDroneLegArch(scene, 20),
+						new MyDroneLegArch(scene, 20)];
+
 	this.top_grip =  new MyFullCylinder(scene, 20, 1);
 	
  };
@@ -23,14 +27,30 @@
 		this.scene.translate(0, -1, -0.05);
 		this.scene.scale(0.5, 1, 0.5);
 		this.scene.rotate(this.angle, 0, 0, 1);
-		this.part1_grip.display();
+		this.grip_parts[0].display();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
 		this.scene.translate(0 ,-1, -0.05);
 		this.scene.scale(0.5 , 1 , 0.5);
 		this.scene.rotate(-this.angle, 0, 0, 1);
-		this.part2_grip.display();
+		this.grip_parts[1].display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.translate(0 ,-1, -0.05);
+		this.scene.scale(0.5 , 1 , 0.5);
+		this.scene.rotate(Math.PI/2, 0, 1,0);
+		this.scene.rotate(-this.angle, 0, 0, 1);
+		this.grip_parts[2].display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.translate(0 ,-1, -0.05);
+		this.scene.scale(0.5 , 1 , 0.5);
+		this.scene.rotate(Math.PI/2, 0, 1,0);
+		this.scene.rotate(this.angle, 0, 0, 1);
+		this.grip_parts[3].display();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
