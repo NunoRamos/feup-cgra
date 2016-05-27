@@ -140,7 +140,7 @@
 		this.scene.defaultMaterial.apply();
 
 		this.scene.pushMatrix();
- 			this.scene.translate(0, 0, -3);
+ 			this.scene.translate(0, 0.2, -3);
  			this.scene.scale(0.2, 0.2, 2);
  			this.crossMaterial[this.scene.textures].apply();
  			this.droneCross[0].display();
@@ -148,7 +148,7 @@
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
-			this.scene.translate(0, 0, -3);
+			this.scene.translate(0, 0.2, -3);
 			this.scene.scale(0.2, 0.2, 2);
  			this.crossMaterial[this.scene.textures].apply();
 			this.droneCross[1].display();
@@ -190,14 +190,14 @@
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
-			this.scene.translate(0, -1, 1);
+			this.scene.translate(0, -0.95, 1);
  			this.legMaterial[this.scene.textures].apply();
 			this.leftLeg.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
-			this.scene.translate(0, -1, -1);
+			this.scene.translate(0, -0.95, -1);
  			this.legMaterial[this.scene.textures].apply();
 			this.rightLeg.display();
 		this.scene.popMatrix();
