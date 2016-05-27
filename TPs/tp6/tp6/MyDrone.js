@@ -28,9 +28,7 @@
 	this.movingDown = false;
 	this.extendingHook = false;
 	this.retractingHook = false;
-	this.openingTip = false;
-	this.closingTip = false;
-
+	
 	this.droneCross = [new MyFullCylinder(this.scene,20,3),
 						new MyFullCylinder(this.scene,20,3)];
 
@@ -284,14 +282,6 @@
  	this.extendingHook = true;
  };
 
-  MyDrone.prototype.startOpeningTip = function() {
- 	this.openingTip = true;
- };
-
-  MyDrone.prototype.startClosingTip = function() {
- 	this.closingTip = true;
- };
-
   MyDrone.prototype.stopTurnLeft = function() {
 	this.movingLeft = false;
 	this.resetMovement();
@@ -330,29 +320,12 @@
  	this.extendingHook = false;
  };
 
- MyDrone.prototype.stopOpeningTip = function() {
- 	this.openingTip = false;
- };
-
-  MyDrone.prototype.stopClosingTip = function() {
- 	this.closingTip = false;
- };
 
  MyDrone.prototype.update = function(deltaTime, helixSpeed) {
 	this.x += this.velX*deltaTime;
 	this.z += this.velZ*deltaTime;
 	this.y += this.velY*deltaTime;
 	this.angle += this.velRot*deltaTime;
-	this.hook.tip.angle += this.hook.tip.vel*deltaTime;
-	if(this.hook.tip.angle<0){
-		this.hook.tip.angle = 0;
-		this.hook.tip.open = true;
-	}
-	else if(this.hook.tip.angle >= Math.PI/3){
-		this.hook.tip.angle = Math.PI/3;
-		this.hook.tip.open = false;
-	}
-	else this.hook.tip.open = true;
 
 	this.velX *= (1-this.attrition);
 	this.velZ *= (1-this.attrition);
@@ -393,13 +366,6 @@
 	}
 	else if(this.extendingHook){
 		this.hook.extend();
-	}
-
-	if(this.openingTip){
-		this.hook.tip.vel -= 0.2
-	}
-	else if(this.closingTip){
-		this.hook.tip.vel += 0.2
 	}
 
 	for(var i = 0; i < this.droneArms.length; i++) {
