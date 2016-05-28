@@ -16,6 +16,13 @@ function MyHook(scene, x, y, z, height) {
 
 	this.cable = new MyFullCylinder(scene, 3, 5);
 	this.grip = new MyGrip(scene);
+
+	this.gripMaterial = new CGFappearance(scene);
+	this.gripMaterial.setSpecular(0.1,0.1,0.1,1);
+	this.gripMaterial.setShininess(1);
+	this.gripMaterial.setDiffuse(1,1,1,1);
+	this.gripMaterial.loadTexture("../resources/images/metalicTexture.jpg");
+
 };
 
 MyHook.prototype = Object.create(CGFobject.prototype);
@@ -41,8 +48,11 @@ MyHook.prototype.display = function() {
 		this.scene.translate(0, -1-this.height, 0);
 		this.scene.rotate(this.angle, 0 ,1,0);
 		this.scene.scale(1, 0.5, 1);
+		this.gripMaterial.apply();
 		this.grip.display();
 	this.scene.popMatrix();
+
+	this.scene.defaultMaterial.apply();
 };
 
 MyHook.prototype.update = function(deltaTime, x, y, z, angle) {
