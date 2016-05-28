@@ -6,6 +6,9 @@ var BOARD_HEIGHT = 4.0;
 var BOARD_A_DIVISIONS = 30;
 var BOARD_B_DIVISIONS = 100;
 
+var ATTRITION = 0.2;
+var TOLERANCE = 0.5;
+
 function LightingScene() {
 	CGFscene.call(this);
 }

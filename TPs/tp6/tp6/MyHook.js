@@ -13,12 +13,9 @@ function MyHook(scene, x, y, z, height) {
 	this.velY = 0;
 	this.height = height;
 	this.attached = null;
-	this.tolerance = 0.5;
-	this.closingTip = false;
-	this.openingTip = false;
 
 	this.cable = new MyFullCylinder(scene, 3, 5);
-	this.tip = new MyGrip(scene);
+	this.grip = new MyGrip(scene);
 };
 
 MyHook.prototype = Object.create(CGFobject.prototype);
@@ -44,17 +41,16 @@ MyHook.prototype.display = function() {
 		this.scene.translate(0, -1-this.height, 0);
 		this.scene.rotate(this.angle, 0 ,1,0);
 		this.scene.scale(1, 0.5, 1);
-		this.tip.display();
+		this.grip.display();
 	this.scene.popMatrix();
 };
 
-MyHook.prototype.update = function(deltaTime, x, y, z, attrition, angle) {
+MyHook.prototype.update = function(deltaTime, x, y, z, angle) {
 	this.x = x;
 	this.y = y;
 	this.z = z;
-	this.velY *= (1-attrition);
+	this.velY *= (1 - ATTRITION);
 	this.height += this.velY*deltaTime;
-	this.tip.angle += this.tip.vel*deltaTime;
 	this.angle = angle;
 
 	if(this.height < 1)
@@ -62,38 +58,22 @@ MyHook.prototype.update = function(deltaTime, x, y, z, attrition, angle) {
 
 	for(var i = 0; i < this.scene.weights.length; i++) {
 		if(this.attached === null) {
-			if(Math.abs(this.scene.weights[i].x - this.x) < this.tolerance &&
-			 Math.abs(this.scene.weights[i].y + this.scene.weights[i].height/2 - this.y + this.height + 1) < this.tolerance && 
-			 Math.abs(this.scene.weights[i].z - this.z) < this.tolerance ) {
+			if(Math.abs(this.scene.weights[i].x - this.x) < TOLERANCE &&
+			 Math.abs(this.scene.weights[i].y + this.scene.weights[i].height/2 - this.y + this.height + 1) < TOLERANCE && 
+			 Math.abs(this.scene.weights[i].z - this.z) < TOLERANCE && 
+			 !this.scene.weights[i].isAtDestination()) {
 				this.attached = this.scene.weights[i];
-				this.closingTip = true;
+				this.grip.close();
 			 }
 		} else {
-			if(this.attached.isAtDestination(this.tolerance)) {
+			if(this.attached.isAtDestination()) {
 				this.attached = null;
-				this.openingTip = true;
+				this.grip.open();
 			} else {
 				this.attached.setPosition(this.x, this.y-this.height-1, this.z);	
 			}
 		}			
 	}
 
-	if(this.tip.angle<0){
-		this.tip.angle = 0;
-		this.tip.open = true;
-		this.openingTip = false;
-	}
-	else if(this.tip.angle >= Math.PI/3){
-		this.tip.angle = Math.PI/3;
-		this.tip.open = false;
-		this.closingTip = false;
-	}
-	//else this.tip.open = true;
-
-	if(this.openingTip){
-		this.tip.vel -= 0.2
-	}
-	else if(this.closingTip){
-		this.tip.vel += 0.2
-	}
+	this.grip.update(deltaTime);
 };

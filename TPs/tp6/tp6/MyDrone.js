@@ -7,7 +7,6 @@
 	
 	this.scene = scene;
 
-	this.attrition = 0.2;
 	this.velX = 0;
 	this.velY = 0;
 	this.velZ = 0;
@@ -331,11 +330,10 @@
 	this.y += this.velY*deltaTime;
 	this.angle += this.velRot*deltaTime;
 
-	this.velX *= (1-this.attrition);
-	this.velZ *= (1-this.attrition);
-	this.velY *= (1-this.attrition);
-	this.velRot *= (1- this.attrition);
-	this.hook.tip.vel *= (1- this.attrition);
+	this.velX *= (1 - ATTRITION);
+	this.velZ *= (1 - ATTRITION);
+	this.velY *= (1 - ATTRITION);
+	this.velRot *= (1- ATTRITION);
 
 	if(this.movingForward) {
 		this.velX += 1.5*Math.sin(this.angle);
@@ -376,5 +374,5 @@
 		this.droneArms[i].update(deltaTime, helixSpeed);
 	}
 	
-	this.hook.update(deltaTime, this.x, this.y, this.z, this.attrition, this.angle);
+	this.hook.update(deltaTime, this.x, this.y, this.z, this.angle);
  };
