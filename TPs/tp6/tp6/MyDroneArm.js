@@ -42,6 +42,6 @@ MyDroneArm.prototype.setVelocity = function(velocity) {
 }
 
 MyDroneArm.prototype.update = function(deltaTime, helixSpeed) {
-	this.angle += deltaTime*this.velocity*helixSpeed;
+	this.angle += 2*Math.PI*deltaTime*this.velocity*helixSpeed;
 }
 

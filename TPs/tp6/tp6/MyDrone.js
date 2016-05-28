@@ -224,20 +224,20 @@
  };
 
  MyDrone.prototype.startTurnLeft = function() {
-	this.droneArms[0].setVelocity(this.speed[2]);
-	this.droneArms[1].setVelocity(this.speed[2]);
-	this.droneArms[2].setVelocity(-this.speed[0]);
-	this.droneArms[3].setVelocity(-this.speed[0]);
-
-	this.movingLeft = true;
- };
-
- MyDrone.prototype.startTurnRight = function() {
 	this.droneArms[0].setVelocity(this.speed[0]);
 	this.droneArms[1].setVelocity(this.speed[0]);
 	this.droneArms[2].setVelocity(-this.speed[2]);
 	this.droneArms[3].setVelocity(-this.speed[2]);
 
+	this.movingLeft = true;
+ };
+
+ MyDrone.prototype.startTurnRight = function() {
+ 	this.droneArms[0].setVelocity(this.speed[2]);
+	this.droneArms[1].setVelocity(this.speed[2]);
+	this.droneArms[2].setVelocity(-this.speed[0]);
+	this.droneArms[3].setVelocity(-this.speed[0]);
+	
 	this.movingRight = true;
  };
 
