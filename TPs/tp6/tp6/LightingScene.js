@@ -92,8 +92,8 @@ LightingScene.prototype.init = function(application) {
 	this.drone = new MyDrone(this, 10, 8, 6);
 	this.weights = [];
 
-	this.weights.push(new MyWeight(this, 5, 4.2, 8.5, new MyDestination(this, 12, 3.2, 8)));
-	this.weights.push(new MyWeight(this, 12, 4.2, 8.5, new MyDestination(this, 5, 3.2, 8)));
+	this.weights.push(new MyWeight(this, 5, 3.8, 8.5, new MyDestination(this, 12, 3.05, 8)));
+	this.weights.push(new MyWeight(this, 12, 3.8, 8.5, new MyDestination(this, 5, 3.05, 8)));
 
 	this.light0 = true;
 	this.light1 = true;

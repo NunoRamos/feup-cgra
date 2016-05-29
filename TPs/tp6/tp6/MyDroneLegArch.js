@@ -37,7 +37,7 @@ MyDroneLegArch.prototype.initBuffers = function () {
 		xCoord =0;
 		yCoord += patchLengthy;
 	}
-		
+
 	for(i = 0; i < 2; i++) {
 		for(j = 0; j < this.slices - 1; j++) {
 			this.indices.push(i*this.slices + j, i*this.slices + j+1, (i+1)*this.slices + j);
@@ -48,6 +48,7 @@ MyDroneLegArch.prototype.initBuffers = function () {
 		}
 	}
 
+	this.indices.push()
 
 		
 	this.primitiveType=this.scene.gl.TRIANGLES;
