@@ -25,7 +25,7 @@ MyDroneLegArch.prototype.initBuffers = function () {
  	var patchLengthy = 1;
  	var xCoord =0;
  	var yCoord =0;
-	var ang=Math.PI/this.slices;
+	var ang=Math.PI/this.slices + Math.PI/16/this.slices;
 
 	for(i = 0; i <= 2; i++) {
 		for(j = 0; j < this.slices; j++) {
@@ -39,13 +39,14 @@ MyDroneLegArch.prototype.initBuffers = function () {
 	}
 
 	for(i = 0; i < 2; i++) {
-		for(j = 0; j < this.slices - 1; j++) {
+		for(j = 0; j < this.slices - 1  ; j++) {
 			this.indices.push(i*this.slices + j, i*this.slices + j+1, (i+1)*this.slices + j);
 			this.indices.push(i*this.slices + j+1, (i+1)*this.slices + j+1, (i+1)*this.slices + j);
 
 			this.indices.push(i*this.slices + j+1, i*this.slices + j, (i+1)*this.slices + j);
 			this.indices.push((i+1)*this.slices + j+1, i*this.slices + j+1, (i+1)*this.slices + j);
 		}
+		
 	}
 
 	this.indices.push()
